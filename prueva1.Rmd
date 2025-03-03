@@ -1,0 +1,58 @@
+---
+title: "Prueba"
+author: "Sofia"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(shiny)
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+SP <- read.csv("C:/Users/PC/OneDrive/Documents/StudentsPerformance1.csv")
+```
+
+
+```{r Intervalos de "desempeño", echo=FALSE}
+# Crear intervalos para Desempeño
+SP$Desempeño_Intervalos <- cut(SP$Desempeño, 
+                               breaks = c(9, 32, 55, 78, 100), 
+                               right = FALSE,
+                               include.lowest = TRUE,
+                               labels = c("[9,32)", "[32,55)", "[55,78)", "[78,100]"))
+
+```
+
+```{r tablas1 , echo=FALSE}
+# Crear la tabla de frecuencias bivariante a
+tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
+
+# Añadir las frecuencias marginales
+tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa)
+
+# Crear la tabla formateada
+kable(tabla_frecuenciasa_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex")
+```
+
+```{r tablas2 , echo=FALSE}
+# Crear la tabla de frecuencias bivariante b
+tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
+
+# Añadir las frecuencias marginales
+tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb)
+
+# Crear la tabla formateada
+kable(tabla_frecuenciasb_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo", format = "latex")
+```
+

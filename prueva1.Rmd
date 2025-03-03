@@ -2,7 +2,11 @@
 title: "Prueba"
 author: "Sofia"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+  pdf_document:
+    extra_dependencies: ["comment"]
+header-includes:
+   - \usepackage{comment}
 ---
 
 ```{r setup, include=FALSE}
@@ -28,31 +32,29 @@ SP$Desempeño_Intervalos <- cut(SP$Desempeño,
 
 ```
 
-```{r tablas1 , echo=FALSE}
+```{r tablas , echo=FALSE}
 # Crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
-
-# Añadir las frecuencias marginales
-tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)
-
-# Convertir la tabla a un data frame para formatearla
-tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa)
+tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias marginales
+tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-kable(tabla_frecuenciasa_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex")
-```
+cat("\\textbf{Tabla de frecuencias bivariante: Desempeño En Comparación al Nivel Educativo de los Padres}\n")
+kable(tabla_frecuenciasa_df, format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
 
-```{r tablas2 , echo=FALSE}
+# Reducir el espacio entre las tablas
+cat("\\vspace{-10mm}")  # Ajusta este valor para reducir el espacio entre las tablas
+
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
-
-# Añadir las frecuencias marginales
-tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)
-
-# Convertir la tabla a un data frame para formatearla
-tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb)
+tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
+tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-kable(tabla_frecuenciasb_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo", format = "latex")
+cat("\\textbf{Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo}\n")
+kable(tabla_frecuenciasb_df, format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
 ```
+
 

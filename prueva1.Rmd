@@ -2,11 +2,7 @@
 title: "Prueba"
 author: "Sofia"
 date: "`r Sys.Date()`"
-output: 
-  pdf_document:
-    extra_dependencies: ["comment"]
-header-includes:
-   - \usepackage{comment}
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -32,7 +28,7 @@ SP$Desempeño_Intervalos <- cut(SP$Desempeño,
 
 ```
 
-```{r tablas , echo=FALSE}
+```{r tabla1 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
 tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias marginales
@@ -46,7 +42,9 @@ kable(tabla_frecuenciasa_df, caption = "Tabla de frecuencias bivariante: Desempe
 invisible(capture.output(
   cat("\\vspace{-10mm}")
 ))  # Ajusta este valor para reducir el espacio entre las tablas
+```
 
+```{r tabla2 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
@@ -56,5 +54,4 @@ tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la
 kable(tabla_frecuenciasb_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
-
 

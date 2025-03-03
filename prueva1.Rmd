@@ -39,12 +39,13 @@ tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-cat("\\textbf{Tabla de frecuencias bivariante: Desempeño En Comparación al Nivel Educativo de los Padres}\n")
-kable(tabla_frecuenciasa_df, format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuenciasa_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 
 # Reducir el espacio entre las tablas
-cat("\\vspace{-10mm}")  # Ajusta este valor para reducir el espacio entre las tablas
+invisible(capture.output(
+  cat("\\vspace{-10mm}")
+))  # Ajusta este valor para reducir el espacio entre las tablas
 
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
@@ -52,8 +53,7 @@ tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias
 tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-cat("\\textbf{Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo}\n")
-kable(tabla_frecuenciasb_df, format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuenciasb_df, caption = "Tabla de frecuencias bivariante: Desempeño En Comparación al Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 

@@ -1,0 +1,204 @@
+---
+title: "Trabajo Grupo 6. Students performance"
+author: "David"
+date: "2025-03-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#Carga de paquetes necesarios
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+
+#Lectura de base de datos
+SP <- read_excel("C:/Users/PC/Documents/GitHub/Statistical-analysis-on-student-performance-/StudentsPerformance G5-G6.xlsx")
+
+
+#Seleccion de columnas (variables) a estudiar
+variables <-select(SP, "parental level of education", "lunch", "math score", "reading score", "writing score")
+variables <- variables %>%
+  mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
+
+
+#Seleccion de las notas academicas
+
+notas <- select(SP, "math score", "reading score", "writing score")
+
+notas <- notas %>%
+  mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
+```
+
+David Mazza, Eros Bande, Sofia Rodriguez    
+
+TITULO
+
+Análisis de las variables nivel educativo de los padres y almuerzo de los estudiantes en su rendimiento escolar
+
+HIPOTESIS
+
+La alimentación de los estudiantes y el nivel educativo de los padres influye significativamente en el rendimiento académico de sus hijos, de modo que, a mayor nivel educativo de los padres, mayor será el rendimiento académico de los hijos.
+ 
+
+DESCRIPCION
+
+Esta investigación tiene como principal enfoque analizar como el nivel educativo de los padres y la alimentación disponible para los estudiantes se relaciona con los resultados de las calificaciones obtenidas en tres exámenes distintos, tomando como base un grupo representativo de colegiales estado unidenses con la finalidad de presentar información concreta de los resultados obtenidos para que las instituciones pertinentes diseñen planes de acción.
+
+El rendimiento académico es uno de los pilares fundamentales del sistema educativo, este no solo refleja las habilidades intelectuales individuales de los alumnos, sino que también está influenciado por factores externos, como el entorno familiar, el apoyo recibido y el nivel educativo de los padres. Estudios previos han destacado el papel de estas variables externas en la productividad académica de los estudiantes.
+
+En particular, el nivel educativo de los padres puede influir de diversas maneras: fomentando una cultura de estudio, sirviendo como modelo a seguir y brindando apoyo académico. Por otro lado, la alimentación adecuada incide directamente en la capacidad de concentración, un aspecto crucial para el éxito en cualquier ámbito académico. 
+
+Aunque muchas personas podrían afirmar, por lógica o experiencia, que estas variables influyen en el desempeño estudiantil, es fundamental respaldar estas afirmaciones con indicadores y análisis estadísticos que eliminen la subjetividad y las opiniones personales. Comprender esta relación permitirá identificar áreas que requieren atención y diseñar herramientas que favorezcan un entorno propicio para el rendimiento académico. 
+
+JUSTIFICACION
+
+El rendimiento académico de los estudiantes es un tema de gran relevancia en el ámbito educativo, ya que está estrechamente vinculado a oportunidades futuras y al desarrollo socioeconómico. Por ende, identificar las variables que pueden predecir el rendimiento escolar es de gran importancia para implementar soluciones efectivas, ya sea mediante ayudas gubernamentales, campañas de concientización o programas de apoyo específicos. 
+
+Diversos estudios han sugerido que el nivel educativo de los padres puede ser un factor determinante en el éxito escolar de los hijos, debido a la influencia que ejercen en la formación de hábitos de estudio, la motivación y el acceso a recursos culturales, educativos y alimenticios. Sin embargo, en el contexto local, existe una brecha en la investigación que aborde esta relación de manera específica. Este estudio busca contribuir a la comprensión de este fenómeno, proporcionando información valiosa para diseñar políticas educativas y estrategias que apoyen a las familias en la promoción del éxito académico de sus hijos.  
+
+Un país con una educación sólida es sinónimo de progreso y desarrollo. Para mejorar el sistema educativo, es necesario prestar atención a su comportamiento de manera detallada y basada en información confiable, la estadística se convierte así en la herramienta más efectiva para lograrlo. 
+
+OBJETIVOS
+
+Objetivo general:
+
+Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+
+Objetivos específicos:
+Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
+
+Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
+
+Determinar si la alimentación de los estudiantes está relacionada con el rendimiento académico en los exámenes mencionados.
+
+Determinar cuál de las dos variables es más influyente en el desempeño escolar.
+
+VARIABLES
+
+Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación. 
+
+LIMITES Y ALCANCE
+
+El límite de esta investigación recae en el alcance de la conclusión establecida. Es decir, el enfoque principal del trabajo es establecer la relación de las dos variables ya mencionadas con el desempeño estudiantil, las razones específicas de el por qué esto sucede está más allá del alcance de los datos disponibles.
+
+ANTECEDENTES
+
+Un tema de gran interés global es el rendimiento escolar de los estudiantes ya dado su relevancia en el crecimiento individual y, por ende, su reflejo a nivel social. Existen diversos estudios que exploran diferentes variables y como estos influyen en el desempeño escolar, algunos de estos son el nivel educativo de los padres y la alimentación de los estudiantes.
+
+El nivel educativo de los padres puede influir de muchas maneras, un artículo de la organización ClearingHouse (2020) realizó una síntesis de estudios externos y determino que el comportamiento de los estudiantes se moldea por la observación y experiencias formativas directas, es decir, cuando los padres muestran un comportamiento orientado a logros académicos, avance en carreras universitarias, postgrados, investigaciones, y facilitan oportunidades de este tipo para sus hijos, estos empiezan a creer en la importancia de este comportamiento y lo priorizan.
+
+Además, otro factor importante en el desempeño académico es la cantidad de tiempo que pasan los estudiantes con sus padres, especialmente si es de calidad y enfocado a desarrollar sus talentos. ClearingHouse (2020) establece lo siguiente:
+
+“Since children learn, in part, by observation, one of the key components to a child’s success is parental time investment (Kalil, Ryan, & Corey, 2012). Highly educated parents spend more time with their children (Guryan, Hurst, & Kearney, 2008) and spend that time actively developing their children’s talents and skills (Lareau, 2002)”
+
+(Como los niños aprenden, en parte, por observación, uno de los componentes claves para su éxito es la inversión de tiempo parental. Padres altamente educados pasan más tiempo con sus hijos y enfocan ese tiempo en desarrollar activamente sus talentos y habilidades. Traducción propia)
+
+Distintos estudios argumentan que el nivel educativo de los padres no necesariamente tiene una relación directa con el desempeño estudiantil, sin embargo, otros académicos concluyen que si tiene una influencia notable en el tiempo que dedican a sus hijos y a su educación, a pesar de que su tiempo podría ser enfocado en otras actividades laborales de mayor remuneración.
+
+“The level of parental education is correlated with the amount of time spent with children and argue that more educated parents spend more time with their children. For example, Guryan et al. found that mothers with a college education or higher spend more than 4 hours per week with their children than mothers with lower education.” Kantova, K. (2024)
+
+(El nivel de educacion de los padres esta correlacionado con la cantidad de tiempo invertido con sus hijos y argumenta que los padres más educados pasan más tiempo con sus hijos. Por ejemplo, Guryan et al encontró que las madres con una educación universitaria o mayor pasan más de 4 horas por semana con sus hijos que las madres con menos educación. Traducción propia)
+
+Además, Kantova (2024) establece a través de numerosas citas y referencias a otros académicos que el porcentaje de graduación de High school (Preparatoria o bachillerato) es menor en individuos que pertenencen a un nucleo familiar de bajo nivel educativo comparado a aquellos de familias más educadas, específicamente, un 72% a 87% respectivamente. Esto es sumamente preocupante a nivel económico y social. Kantova (2024) establece:  
+
+“Belfield and Levin (2007) claim that high school graduation is a doorway to economic self-sufficiency and civic engagement. Without a high school diploma, people are more likely to earn a lower income and be arrested, which leads to higher costs for the US.”
+(Belfield y Levin (2007) afirman que graduarse de preparatoria es una puerta a la autosuficiencia económica y el compromiso cívico. Sin un diploma de preparatoria, las personas son más propensas a tener un menor ingreso económico y a ser arrestar, lo que causa mayor costo para Estados Unidos. Traducción propia)
+
+Por otra parte, la fundación Amhersth Wilder Foundation explica la importancia de una buena alimentación en el desarrollo integral de los niños, proceso social y académico. Se ha demostrado que una alimentación pobre o reducida afecta la capacidad de pensamiento, conducta y salud, factores que influencia el desempeño estudiantil (Wilder Research, 2014)
+
+Se han realizado numerosos estudios sobre este tema, prohibir comida chatarra en campañas escolares y ofrecer alternativas más saludables en las comidas. Esta investigación encontró que los estudiantes de las escuelas donde se implementó esta idea tuvieron mejores calificaciones en algunas materias comparado a quienes no estuvieron involucrados en el experimento (Belot & Jamesm 2009, como se citó en Wilder research, 2014)
+
+Una nutrición balanceada, que satisfaga todas las necesidades alimenticias de los estudiantes no solo evita enfermedades que afecten la asistencia y desempeño escolar, también les da más energías a los estudiantes, aumenta su concentración e incluso promueve su capacidad cognitiva. (Bellisle, 2004; Sorhaindo & Feinstein, 2006, como se citó en Wilder research, 2014)
+
+Malki, A (2018) realizó un estudio titulado “Effects of Student Nutrition on Academic Perfomance” (Efectos de la nutrición escolar en el desempeño academico) y determinó que los estudiantes que tenían una situación de inseguridad alimenticia tenían una tendencia a un desempeño escolar menor comparado con los demás, aquellos que consumían 2 comidas por día tenían una tendencia a un rendimiento medio y los que tenían acceso a comidas saludables y balanceadas, en promedio, tenían mejor rendimiento. Esto fue determinado a través de un análisis de regresión lineal.
+
+
+A continuación, se mostraran los calculos descriptivos de la variable cuantitativa llamada Desempeño, esta es sera utilizada como la sintesis del desempeño escolar de los estudiantes
+
+
+
+```{r, echo = FALSE}
+Calculos_simples <- notas %>%
+  summarise(
+    Promedio = round(mean(Desempeño), 2),
+    Mediana = round(median(Desempeño), 2),
+    Varianza = round(var(Desempeño), 2),
+    Desviacion_estandar = round(sd(Desempeño), 2),
+    Coeficiente_de_variacion = round(((Desviacion_estandar / Promedio) * 100), 2)
+  )
+
+kable(Calculos_simples,
+      align = "c", 
+      caption = "Cálculo de medidas descriptivas")
+```
+
+Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
+
+```{r, echo = FALSE}
+#Distribución de las variables cualitativas
+
+Cantidad_parental_level <- variables %>%
+  group_by(`parental level of education`) %>%
+  summarise(
+    Cantidad1 = n(),
+    Proporción1 = round((n() / nrow(variables)) * 100, 2)
+  )
+  
+kable(Cantidad_parental_level,
+      align = "c", 
+      caption = "Distribución de la variable parental level of education")
+
+Cantidad_lunch <- variables %>%
+  group_by(`lunch`) %>%
+  summarise(
+    Cantidad2 = n(),
+    Proporción2 = round((n() / nrow(variables)) * 100, 2)
+  )
+
+kable(Cantidad_lunch,
+      align = "c", 
+      caption = "Distribución de la variable lunch")
+
+#Graficos de las Distribuciones de las variables cualitativas
+
+ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Cantidad1, fill = `parental level of education`)) +
+  geom_col() +
+  labs(
+    title = "Distribucion de la variable parental level of education",
+    x = "Nivel de educacion parental",
+    y = "Cantidad"
+  ) + theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
+  geom_col() +
+  labs(
+    title = "Distribucion de la variable lunch",
+    x = "lunch",
+    y = "Cantidad"
+  ) + theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Gráficos de las proporciones de las variables cualitativas
+
+ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporción1, fill = `parental level of education`)) +
+  geom_col() +
+  labs(
+    title = "Proporción de la variable parental level of education",
+    x = "Nivel de educación parental",
+    y = "Proporción (%)"
+  ) + theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporción2, fill = `lunch`)) +
+  geom_col() +
+  labs(
+    title = "Distribucion de la variable lunch",
+    x = "lunch",
+    y = "Proporcion (%)"
+  ) + theme_light() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```

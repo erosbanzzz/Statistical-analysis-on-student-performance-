@@ -143,7 +143,7 @@ Cantidad_parental_level <- variables %>%
   group_by(`parental level of education`) %>%
   summarise(
     Cantidad1 = n(),
-    Proporción1 = round((n() / nrow(variables)) * 100, 2)
+    Proporcion1 = round((n() / nrow(variables)) * 100, 2)
   )
   
 kable(Cantidad_parental_level,
@@ -154,7 +154,7 @@ Cantidad_lunch <- variables %>%
   group_by(`lunch`) %>%
   summarise(
     Cantidad2 = n(),
-    Proporción2 = round((n() / nrow(variables)) * 100, 2)
+    Proporcion2 = round((n() / nrow(variables)) * 100, 2)
   )
 
 kable(Cantidad_lunch,
@@ -183,7 +183,7 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
 
 # Gráficos de las proporciones de las variables cualitativas
 
-ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporción1, fill = `parental level of education`)) +
+ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporcion1, fill = `parental level of education`)) +
   geom_col() +
   labs(
     title = "Proporción de la variable parental level of education",
@@ -192,7 +192,7 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
   ) + theme_light() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporción2, fill = `lunch`)) +
+ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
     title = "Distribucion de la variable lunch",

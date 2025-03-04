@@ -1,5 +1,5 @@
 ---
-title: "Trabajo Grupo 6. Students performance"
+title: "Trabajo Grupo 6 Students performance"
 author: "David"
 date: "2025-03-03"
 output: pdf_document
@@ -35,7 +35,7 @@ David Mazza, Eros Bande, Sofia Rodriguez
 
 # TITULO
 
-# Análisis de las variables nivel educativo de los padres y almuerzo de los estudiantes en su rendimiento escolar
+## Análisis de las variables nivel educativo de los padres y almuerzo de los estudiantes en su rendimiento escolar
 
 ## HIPOTESIS
 
@@ -66,8 +66,9 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 * Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
 
-* Objetivos específicos:
-Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
+### Objetivos específicos:
+
+* Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
 
 * Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
 

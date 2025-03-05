@@ -37,7 +37,7 @@ SP$Desempeño_Intervalos <- cut(SP$Desempeño,
 
 ```
 
-```{r tabla1 , echo=FALSE, fig.table = 'htbp'}
+```{r tabla1 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
 tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias marginales
@@ -53,12 +53,12 @@ invisible(capture.output(
 ))  # Ajusta este valor para reducir el espacio entre las tablas
 ```
 
-```{r grafico1, echo=FALSE, fig.pos = 'htbp', fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education)) + geom_boxplot()  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
+```{r grafico1, echo=FALSE, fig.width = 9, fig.height = 4}
+ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point")  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
 ```
 
 
-```{r tabla2 , echo=FALSE, table.pos = 'htbp'}
+```{r tabla2 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
@@ -69,11 +69,11 @@ kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Al
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-```{r grafico2, echo=FALSE, fig.pos = 'htbp', fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot()  + labs(title = "Desempeño en función del la Calidad de los Almuerzos", x = "Almuerzo", y = "Desempeño") +  theme(text = element_text(family = "serif")) + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
+```{r grafico2, echo=FALSE, fig.width = 9, fig.height = 4}
+ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point") + labs(title = "Desempeño en función del la Calidad de los Almuerzos", x = "Almuerzo", y = "Desempeño") +  theme(text = element_text(family = "serif")) + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
 ```
 
-```{r grafico3, echo=FALSE, fig.pos = 'htbp', fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = lunch)) + geom_boxplot()  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())             
+```{r grafico3, echo=FALSE, fig.width = 9, fig.height = 4}
+ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75))  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())             
 ```
 

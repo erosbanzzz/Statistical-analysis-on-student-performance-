@@ -8,17 +8,15 @@ output:
       in_header: preamble.tex
 ---
 
-# Analisis Bivariante
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-library(shiny)
 library(readr)
 library(dplyr)
 library(knitr)
 library(kableExtra)
 library(plotly)
+library(e1071)
 
 library(extrafont)
 loadfonts(device = "win")
@@ -26,19 +24,22 @@ loadfonts(device = "win")
 SP <- read.csv("C:/Users/PC/OneDrive/Documents/StudentsPerformance1.csv")
 ```
 
+# Analisis Bivariante
+
+Para examinar el nivel de correlación entre las variables "Nivel Educativo de los padres" y "Almuerzo" en comparación a la variable "Desempeño" lo primero que haremos sera crear dos tablas bivariantes, una con "Nivel Educativo de los padres" y "Desempeño" y la otra con "Almuerzo" y "Nivel Educativo de los padres", para hacer esto primero agrupamos a la variable desempeño, lo cual fue hecho calculando el rango de ésta variable ($r = Valor_{maximo} - Valor_{minimo}$), seguido de la determinación del número de clases utilizando el criterio de Dixon ($k = 1 + \log_{10}(n)$, Donde $n$ es el total de observaciones de la base de datos), posteriormente se calcula el intervalo de amplitud ($IC = \frac{r}{k}$, donde $r$ es el rango y $k$ es la cantidad de clases redondedo a un número entero) y por ultimo se calculan  los lmites de clase ($LI_1 = Valor_ {minimo}$, $LS_i = LI_i + IC$, etc) y finalmente se agrupan los datos de acurdo a las clases de las variables. 
 
 ```{r Intervalos de "desempeño", echo=FALSE}
-# Crear intervalos para Desempeño
+# crear intervalos para Desempeño
 SP$Desempeño_Intervalos <- cut(SP$Desempeño, 
                                breaks = c(9, 32, 55, 78, 100), 
                                right = FALSE,
                                include.lowest = TRUE,
-                               labels = c("[9,32)", "[32,55)", "[55,78)", "[78,100]"))
+                               labels = c("[9,32]", "[32,55]", "[55,78]", "[78,100]"))
 
 ```
 
 ```{r tabla1 , echo=FALSE}
-# Crear la tabla de frecuencias bivariante a
+# crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
 tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias marginales
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
@@ -50,12 +51,55 @@ kable(tabla_frecuenciasa_df, caption = "Desempeño En Comparación al Nivel Educ
 # Reducir el espacio entre las tablas
 invisible(capture.output(
   cat("\\vspace{-10mm}")
-))  # Ajusta este valor para reducir el espacio entre las tablas
+))
+```
+
+En esta tabla lo primero que slta a la vita es que a medida que el nivel educativo de los padres aumenta, la cantidad de estudiantes en los rangos de Desempeño más altos también tiende a aumentar, por ejemplo, en el rango [78,100], los niveles educativos "associate's degree", "bachelor's degree" y "master's degree" tienen 63, 38 y 24 estudiantes respectivamente, en comparación con "high school" que tiene solo 28, sin embargo busquemos visualizar ésto mejor haciendo el uso de cuartiles y un diagrama de cajas.
+
+```{r cuartiles, echo=FALSE}
+# Calcular cuartiles por nivel educativo de los padres
+cuartiles <- SP %>%
+  group_by(parental_level_of_education) %>%
+  summarise(
+    Q1 = round(quantile(Desempeño, 0.25), 2),
+    Q2 = round(quantile(Desempeño, 0.50), 2), 
+    Q3 = round(quantile(Desempeño, 0.75), 2))
+
+# Mostrar 
+kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
 ```{r grafico1, echo=FALSE, fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point")  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
+# Grafico de cajas
+ggplot(SP, aes(
+  x = parental_level_of_education, 
+  y = Desempeño, 
+  fill = parental_level_of_education)) + 
+  geom_boxplot() + stat_summary(fun = "mean", geom = "point")  + labs(
+  title = "Desempeño en función del Nivel Educativo de los Padres", 
+  x = "Nivel Educativo de los Padres", 
+  y = "Desempeño") +
+  theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
 ```
+
+```{r caculos basicos, echo=FALSE}
+estadisticos_basicos <- SP %>%
+  group_by(parental_level_of_education) %>%
+  summarise(
+    media = mean(Desempeño),
+    desviacion_estandar = sd(Desempeño),
+    coeficiente_variacion = (desviacion_estandar / media) * 100,
+    asimetria = skewness(Desempeño),
+    curtosis = kurtosis(Desempeño)
+  )
+# Mostrar
+kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+
 
 
 ```{r tabla2 , echo=FALSE}
@@ -64,16 +108,58 @@ tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
 tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para formatearla
 
-# Crear la tabla formateada
+# Mostrar
 kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-```{r grafico2, echo=FALSE, fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point") + labs(title = "Desempeño en función del la Calidad de los Almuerzos", x = "Almuerzo", y = "Desempeño") +  theme(text = element_text(family = "serif")) + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
+```{r curtosis2, echo=FALSE}
+# Calcular cuartiles por nivel educativo de los padres
+cuartiles2 <- SP %>%
+  group_by(lunch) %>%
+  summarise(
+    Q1 = round(quantile(Desempeño, 0.25), 2),
+    Q2 = round(quantile(Desempeño, 0.50), 2), 
+    Q3 = round(quantile(Desempeño, 0.75), 2))
+
+# Mostrar 
+kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
+```{r calculos basicos2, echo=FALSE}
+estadisticos_basicos2 <- SP %>%
+  group_by(lunch) %>%
+  summarise(
+    media = mean(Desempeño),
+    desviacion_estandar = sd(Desempeño),
+    coeficiente_variacion = (sd(Desempeño) / mean(Desempeño)) * 100,
+    curtosis = kurtosis(Desempeño)
+  )
+# Mostrar
+kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+```{r grafico2, echo=FALSE, fig.width = 9, fig.height = 4}
+# Grafico de cajas
+ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point") + labs(
+  title = "Desempeño en función del la Calidad de los Almuerzos", 
+  x = "Almuerzo", 
+  y = "Desempeño") +
+  theme(text = element_text(family = "serif")) + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
+```
+
+# Comparación de las Tres Variables en Conjunto
+
 ```{r grafico3, echo=FALSE, fig.width = 9, fig.height = 4}
-ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75))  + labs(title = "Desempeño en función del Nivel Educativo de los Padres", x = "Nivel Educativo de los Padres", y = "Desempeño") + theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())             
+# Grafico de cajas
+ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education, colour = lunch)) + 
+  geom_boxplot() + stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres", 
+    x = "Nivel Educativo de los Padres", 
+    y = "Desempeño") + 
+  theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank()) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))             
 ```
 

@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE)
 library(tidyverse)
 library(readr)
 library(dplyr)
@@ -56,6 +56,7 @@ invisible(capture.output(
 
 En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
 
+
 ```{r cuartiles, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
 cuartiles <- SP %>%
@@ -72,7 +73,7 @@ kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los 
 
 En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67
 
-```{r grafico1, echo=FALSE, fig.width = 8, fig.height = 6}
+```{r grafico1, echo=FALSE}
 # Grafico de cajas
 ggplot(SP, aes(
   x = parental_level_of_education, 
@@ -144,7 +145,7 @@ kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por 
 ```
 
 
-```{r grafico2, echo=FALSE, fig.width = 8, fig.height = 6}
+```{r grafico2, echo=FALSE}
 # Grafico de cajas
 ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot() + stat_summary(fun = "mean", geom = "point") + labs(
   title = "Desempeño en función del la Calidad de los Almuerzos", 
@@ -155,7 +156,7 @@ ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + geom_boxplot() + stat
 
 # Comparación de las Tres Variables en Conjunto
 
-```{r grafico3, echo=FALSE, fig.width = 8, fig.height = 6}
+```{r grafico3, echo=FALSE}
 # Grafico de cajas
 ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education, colour = lunch)) + 
   geom_boxplot() + stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(

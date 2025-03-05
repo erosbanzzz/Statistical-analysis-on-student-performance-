@@ -12,6 +12,7 @@ library(readxl)
 library(tidyverse)
 library(ggplot2)
 library(knitr)
+library(e1071)
 
 #Lectura de base de datos
 SP <- read_excel("C:/Users/PC/Documents/GitHub/Statistical-analysis-on-student-performance-/StudentsPerformance G5-G6.xlsx")
@@ -119,19 +120,51 @@ A continuación, se mostraran los calculos descriptivos de la variable cuantitat
 
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning = FALSE}
 Calculos_simples <- notas %>%
   summarise(
     Promedio = round(mean(Desempeño), 2),
     Mediana = round(median(Desempeño), 2),
     Varianza = round(var(Desempeño), 2),
     Desviacion_estandar = round(sd(Desempeño), 2),
-    Coeficiente_de_variacion = round(((Desviacion_estandar / Promedio) * 100), 2)
+    Coeficiente_de_variacion = paste0(round(((Desviacion_estandar / Promedio) * 100), 2), "%"),
+    Kurtosis = round(kurtosis(Desempeño), 2),
+    Simetria = round(skewness(Desempeño), 2)
   )
+
+Valor_Kurtosis <- Calculos_simples$Kurtosis  #Creacion de un dataframe que almacena el valor de kurtosis para un mejor grafico
+Kurtosis_df <- data.frame(
+  Calculo1 = "Kurtosis",
+  Valor1 = Valor_Kurtosis)
+
+Valor_Simetria <- Calculos_simples$Simetria
+Simetria_df <- data.frame(
+  Calculo = "Simetria",
+  Valor2 = Valor_Simetria
+)
+
 
 kable(Calculos_simples,
       align = "c", 
       caption = "Cálculo de medidas descriptivas")
+
+#Gráfico de la kurtosis y simetria
+
+Valores_kurtosis<- variables$Desempeño      #Selección de la variable desempeño
+kurtosis_value <- round(kurtosis(Valores_kurtosis), 2)  #Calculo de la kurtosis
+
+Kurtosis_data_frame <- data.frame(value = Valores_kurtosis)  #Creación de un data frame para usar en el grafico como X
+
+ggplot(Kurtosis_data_frame, aes(x = value)) +
+  geom_histogram(aes(y = ..density..), bins = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_density(color = "red", linewidth = 1) +
+  stat_function(fun = dnorm, 
+                args = list(mean = mean(Valores_kurtosis), sd = sd(Valores_kurtosis)), 
+                color = "blue", linetype = "dashed", size = 1) +
+  ggtitle(paste("Histograma sobre la simetria y kurtosis")) +
+  theme_minimal() +
+  theme(text = element_text(family = "serif"))
+
 ```
 
 Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
@@ -170,7 +203,10 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
     x = "Nivel de educacion parental",
     y = "Cantidad"
   ) + theme_light() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif")
+    )
 
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
   geom_col() +
@@ -179,8 +215,10 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
     x = "lunch",
     y = "Cantidad"
   ) + theme_light() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif")
+    )
 # Gráficos de las proporciones de las variables cualitativas
 
 ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporcion1, fill = `parental level of education`)) +
@@ -190,8 +228,10 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
     x = "Nivel de educación parental",
     y = "Proporción (%)"
   ) + theme_light() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+ theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif")
+    )
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
@@ -199,6 +239,8 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
     x = "lunch",
     y = "Proporcion (%)"
   ) + theme_light() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif")
+    )
 ```

@@ -54,7 +54,7 @@ invisible(capture.output(
 ))
 ```
 
-En esta tabla lo primero que slta a la vita es que a medida que el nivel educativo de los padres aumenta, la cantidad de estudiantes en los rangos de Desempeño más altos también tiende a aumentar, por ejemplo, en el rango [78,100], los niveles educativos "associate's degree", "bachelor's degree" y "master's degree" tienen 63, 38 y 24 estudiantes respectivamente, en comparación con "high school" que tiene solo 28, sin embargo busquemos visualizar ésto mejor haciendo el uso de cuartiles y un diagrama de cajas.
+En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
 
 ```{r cuartiles, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
@@ -70,7 +70,9 @@ kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los 
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-```{r grafico1, echo=FALSE, fig.width = 9, fig.height = 4}
+En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67
+
+```{r grafico1, echo=FALSE}
 # Grafico de cajas
 ggplot(SP, aes(
   x = parental_level_of_education, 
@@ -82,6 +84,8 @@ ggplot(SP, aes(
   y = "Desempeño") +
   theme(text = element_text(family = "serif")) + theme(plot.title = element_text(hjust = 0.5)) + theme(axis.text.x = element_blank())
 ```
+
+
 
 ```{r caculos basicos, echo=FALSE}
 estadisticos_basicos <- SP %>%

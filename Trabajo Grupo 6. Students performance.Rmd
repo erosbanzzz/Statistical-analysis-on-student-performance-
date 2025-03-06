@@ -67,8 +67,9 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 * Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
 
-* Objetivos específicos:
-Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
+### Objetivos específicos:
+
+* Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
 
 * Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
 
@@ -127,9 +128,11 @@ Calculos_simples <- notas %>%
     Mediana = round(median(Desempeño), 2),
     Varianza = round(var(Desempeño), 2),
     Desviacion_estandar = round(sd(Desempeño), 2),
-    Coeficiente_de_variacion = paste0(round(((Desviacion_estandar / Promedio) * 100), 2), "%"),
+    CV = paste0(round(((Desviacion_estandar / Promedio) * 100), 2), "%"),
     Kurtosis = round(kurtosis(Desempeño), 2),
-    Simetria = round(skewness(Desempeño), 2)
+    Simetria = round(skewness(Desempeño), 2),
+    Minimo = min(Desempeño),
+    Maximo = max(Desempeño)
   )
 
 Valor_Kurtosis <- Calculos_simples$Kurtosis  #Creacion de un dataframe que almacena el valor de kurtosis para un mejor grafico

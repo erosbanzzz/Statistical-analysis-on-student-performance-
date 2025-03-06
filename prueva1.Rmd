@@ -134,7 +134,7 @@ kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", form
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-```{r grafico2, echo=FALSE}
+```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
 # Grafico de cajas
 ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + 
   geom_boxplot() + 

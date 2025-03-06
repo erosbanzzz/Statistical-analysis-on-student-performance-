@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE)
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE, fig.align = 'center')
 library(tidyverse)
 library(readr)
 library(dplyr)
@@ -41,7 +41,7 @@ SP$Desempeño_Intervalos <- cut(SP$Desempeño,
 ```{r tabla1 , echo=FALSE}
 # crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
-tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)   # Añadir las frecuencias marginales
+tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)  
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
@@ -71,7 +71,7 @@ kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los 
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67.Todo esto se puede visualizar mucho mejor en el grafico de cajas "Desempeño en función del Nivel Educativo de los Padres".
+En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school" y "some high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67.Todo esto se puede visualizar mucho mejor en el grafico de cajas "Desempeño en función del Nivel Educativo de los Padres".
 
 ```{r grafico1, echo=FALSE}
 # Grafico de cajas
@@ -96,18 +96,17 @@ ggplot(SP, aes(
 estadisticos_basicos <- SP %>%
   group_by(parental_level_of_education) %>%
   summarise(
-    Media = mean(Desempeño),
-    D.Estandar = sd(Desempeño),
-    C.Variacion = (D.Estandar / Media) * 100,
-    Asimetria = skewness(Desempeño),
-    Kurtosis = kurtosis(Desempeño)
-  )
+    Media = round(mean(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    C.Variacion = round(((D.Estandar / Media) * 100), 2),
+    Asimetria = round(skewness(Desempeño), 2),
+    Kurtosis = round(kurtosis(Desempeño), 2))
 # Mostrar
 kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-
+De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
 
 ```{r tabla2 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante b
@@ -120,7 +119,9 @@ kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Al
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-```{r curtosis2, echo=FALSE}
+En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un mayor número de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay 197 estudiantes con almuerzo "standard" y solo 52 con almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos a nalizar mejor esto mediante cuartiles.
+
+```{r cuartiles2, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
 cuartiles2 <- SP %>%
   group_by(lunch) %>%
@@ -133,6 +134,8 @@ cuartiles2 <- SP %>%
 kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
+
+La tabla 5 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
 
 ```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
 # Grafico de cajas
@@ -154,12 +157,11 @@ ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) +
 estadisticos_basicos2 <- SP %>%
   group_by(lunch) %>%
   summarise(
-    Media = mean(Desempeño),
-    D.Estandar = sd(Desempeño),
-    C.Variacion = (D.Estandar / Media) * 100,
-    Asimetria = skewness(Desempeño),
-    Kurtosis = kurtosis(Desempeño)
-  )
+    Media = round(mean(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    C.Variacion = round(((D.Estandar / Media) * 100), 2),
+    Asimetria = round(skewness(Desempeño), 2),
+    Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
 # Mostrar
 kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))

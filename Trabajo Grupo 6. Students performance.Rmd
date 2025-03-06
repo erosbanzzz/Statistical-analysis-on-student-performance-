@@ -18,7 +18,7 @@ library(knitr)
 library(e1071)
 
 #Lectura de base de datos
-SP <- read_excel("C:/Users/PC/OneDrive/Documents/Statistical-analysis-on-student-performance-/BBDD/StudentsPerformance G5-G6.xlsx")
+SP <- read_excel("C:/Users/PC/Documents/GitHub/Statistical-analysis-on-student-performance-/StudentsPerformance G5-G6.xlsx")
 
 
 #Seleccion de columnas (variables) a estudiar

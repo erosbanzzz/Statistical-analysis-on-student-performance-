@@ -11,11 +11,16 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE, fig.align = 'center')
 #Carga de paquetes necesarios
-library(readxl)
 library(tidyverse)
-library(ggplot2)
+library(readxl)
+library(dplyr)
 library(knitr)
+library(kableExtra)
+library(plotly)
 library(e1071)
+
+library(extrafont)
+loadfonts(device = "win")
 
 #Lectura de base de datos
 SP <- read_excel("StudentsPerformance G5-G6.xlsx")
@@ -141,8 +146,8 @@ Calculos_simples <- notas %>%
     Promedio = round(mean(Desempeño), 2),
     Mediana = round(median(Desempeño), 2),
     Varianza = round(var(Desempeño), 2),
-    Desviacion_estandar = round(sd(Desempeño), 2),
-    CV = paste0(round(((Desviacion_estandar / Promedio) * 100), 2), "%"),
+    D.Estandar = round(sd(Desempeño), 2),
+    CV = paste0(round(((D.Estandar / Promedio) * 100), 2), "%"),
     Kurtosis = round(kurtosis(Desempeño), 2),
     Simetria = round(skewness(Desempeño), 2),
     Minimo = min(Desempeño),
@@ -261,3 +266,167 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
     text = element_text(family = "serif")
     )
 ```
+
+# Analisis Bivariante
+
+Para examinar el nivel de correlación entre las variables "Nivel Educativo de los padres" y "Almuerzo" en comparación a la variable "Desempeño" lo primero que haremos sera crear dos tablas bivariantes, una con "Nivel Educativo de los padres" y "Desempeño" y la otra con "Almuerzo" y "Nivel Educativo de los padres", para hacer esto primero agrupamos a la variable desempeño, lo cual fue hecho calculando el rango de ésta variable ($r = Valor_{maximo} - Valor_{minimo}$), seguido de la determinación del número de clases utilizando el criterio de Dixon ($k = 1 + \log_{10}(n)$, Donde $n$ es el total de observaciones de la base de datos), posteriormente se calcula el intervalo de amplitud ($IC = \frac{r}{k}$, donde $r$ es el rango y $k$ es la cantidad de clases redondedo a un número entero) y por ultimo se calculan  los lmites de clase ($LI_1 = Valor_ {minimo}$, $LS_i = LI_i + IC$, etc) y finalmente se agrupan los datos de acurdo a las clases de las variables. 
+
+```{r Intervalos de "desempeño", echo=FALSE}
+# crear intervalos para Desempeño
+variables$Desempeño_Intervalos <- cut(variables$Desempeño, 
+                               breaks = c(9, 32, 55, 78, 100), 
+                               right = FALSE,
+                               include.lowest = TRUE,
+                               labels = c("[9,32]", "[32,55]", "[55,78]", "[78,100]"))
+
+```
+
+```{r tabla1 , echo=FALSE}
+# crear la tabla de frecuencias bivariante a
+tabla_frecuenciasa <- table(variables$'parental level of education', variables$Desempeño_Intervalos)
+tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)  
+tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
+
+# Crear la tabla formateada
+kable(tabla_frecuenciasa_df, caption = "Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+# Reducir el espacio entre las tablas
+invisible(capture.output(
+  cat("\\vspace{-10mm}")
+))
+```
+
+En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
+
+
+```{r cuartiles, echo=FALSE}
+# Calcular cuartiles por nivel educativo de los padres
+cuartiles <- variables %>%
+  group_by(`parental level of education`) %>%  # Backticks para nombres con espacios
+  summarise(
+    Q1 = round(quantile(Desempeño, 0.25), 2),
+    Q2 = round(quantile(Desempeño, 0.50), 2),
+    Q3 = round(quantile(Desempeño, 0.75), 2))
+
+kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los Padres") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school" y "some high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67.Todo esto se puede visualizar mucho mejor en el grafico de cajas "Desempeño en función del Nivel Educativo de los Padres".
+
+```{r grafico1, echo=FALSE}
+# Grafico de cajas
+ggplot(variables, aes(
+  x = `parental level of education`, 
+  y = Desempeño, 
+  fill = `parental level of education`)) + 
+  geom_boxplot() + 
+  stat_summary(fun = "mean", geom = "point") + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres", 
+    x = "Nivel Educativo de los Padres", 
+    y = "Desempeño",
+    fill = "") + theme(
+    text = element_text(family = "serif"),
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(hjust = 0.5))
+```
+
+```{r caculos basicos, echo=FALSE}
+estadisticos_basicos <- variables %>%
+  group_by(`parental level of education`) %>%
+  summarise(
+    Promedio = round(mean(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    CV = round(((D.Estandar / Promedio) * 100), 2),
+    Asimetria = round(skewness(Desempeño), 2),
+    Kurtosis = round(kurtosis(Desempeño), 2))
+# Mostrar
+kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
+
+```{r tabla2 , echo=FALSE}
+# Crear la tabla de frecuencias bivariante b
+tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)
+tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
+tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para formatearla
+
+# Mostrar
+kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un mayor número de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay 197 estudiantes con almuerzo "standard" y solo 52 con almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos a nalizar mejor esto mediante cuartiles.
+
+```{r cuartiles2, echo=FALSE}
+# Calcular cuartiles por nivel educativo de los padres
+cuartiles2 <- variables %>%
+  group_by(`lunch`) %>%
+  summarise(
+    Q1 = round(quantile(Desempeño, 0.25), 2),
+    Q2 = round(quantile(Desempeño, 0.50), 2), 
+    Q3 = round(quantile(Desempeño, 0.75), 2))
+
+# Mostrar 
+kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+La tabla 5 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
+
+```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
+# Grafico de cajas
+ggplot(variables, aes(x = `lunch`, y = `Desempeño`, fill = `lunch`)) + 
+  geom_boxplot() + 
+  stat_summary(fun = "mean", geom = "point") + labs(
+    title = "Desempeño en función de la Calidad de los Almuerzos", 
+    x = "Almuerzo", 
+    y = "Desempeño",
+    fill = "") + theme(
+    text = element_text(family = "serif"),
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(hjust = 0.5))
+```
+
+```{r calculos basicos2, echo=FALSE}
+estadisticos_basicos2 <- variables %>%
+  group_by(lunch) %>%
+  summarise(
+    Promedio = round(mean(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    CV = round(((D.Estandar / Promedio) * 100), 2),
+    Asimetria = round(skewness(Desempeño), 2),
+    Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
+# Mostrar
+kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+# Comparación de las Tres Variables en Conjunto
+
+```{r grafico3, echo=FALSE}
+# Grafico de cajas
+ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
+  geom_boxplot() + 
+  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres", 
+    x = "Nivel Educativo de los Padres", 
+    y = "Desempeño",
+    fill = "",  
+    colour = "") + theme(
+    text = element_text(family = "serif"),
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(hjust = 0.5)) + 
+ scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
+```
+
+

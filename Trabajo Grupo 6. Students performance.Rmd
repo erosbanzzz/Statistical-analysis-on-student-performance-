@@ -183,8 +183,7 @@ ggplot(Kurtosis_data_frame, aes(x = value)) +
   stat_function(fun = dnorm, 
                 args = list(mean = mean(Valores_kurtosis), sd = sd(Valores_kurtosis)), 
                 color = "blue", linetype = "dashed", size = 1) +
-  ggtitle(paste("Histograma sobre la simetria y kurtosis")) +
-  theme_minimal() +
+  ggtitle(paste("Histograma sobre la simetria y kurtosis")) + theme_minimal() +
   theme(text = element_text(family = "serif"))
 
 ```
@@ -269,10 +268,20 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
 
 # Analisis Bivariante
 
-Para examinar el nivel de correlación entre las variables "Nivel Educativo de los padres" y "Almuerzo" en comparación a la variable "Desempeño" lo primero que haremos sera crear dos tablas bivariantes, una con "Nivel Educativo de los padres" y "Desempeño" y la otra con "Almuerzo" y "Nivel Educativo de los padres", para hacer esto primero agrupamos a la variable desempeño, lo cual fue hecho calculando el rango de ésta variable ($r = Valor_{maximo} - Valor_{minimo}$), seguido de la determinación del número de clases utilizando el criterio de Dixon ($k = 1 + \log_{10}(n)$, Donde $n$ es el total de observaciones de la base de datos), posteriormente se calcula el intervalo de amplitud ($IC = \frac{r}{k}$, donde $r$ es el rango y $k$ es la cantidad de clases redondedo a un número entero) y por ultimo se calculan  los lmites de clase ($LI_1 = Valor_ {minimo}$, $LS_i = LI_i + IC$, etc) y finalmente se agrupan los datos de acurdo a las clases de las variables. 
+Para examinar si existe alguna clase de correlación entre las variables "Nivel Educativo de los padres" y "Almuerzo" en comparación a la variable "Desempeño" analisaremos las proporciones, los cuartiles y la asimetria y kurtosis de desempeño en relacion a las otras variables.
 
-```{r Intervalos de "desempeño", echo=FALSE}
-# crear intervalos para Desempeño
+```{r Intervalos de "desempeño", echo=FALSE, include=FALSE}
+# Calcular intervalos
+Rango = max(variables$Desempeño) - min(variables$Desempeño)
+Nro_clases = 1 + log10(1000)
+Intervalo_amplitud = round((Rango / Nro_clases), 0)
+
+limites_inferiores <- seq(min(variables$Desempeño), max(variables$Desempeño), by = Intervalo_amplitud)
+limites_superiores <- limites_inferiores + Intervalo_amplitud
+
+cat(limites_inferiores, limites_superiores) #como el valor maximo de la variable desempeño es 100, se redondea ese ultimo LS a 100
+
+# Crear intervalos para Desempeño
 variables$Desempeño_Intervalos <- cut(variables$Desempeño, 
                                breaks = c(9, 32, 55, 78, 100), 
                                right = FALSE,
@@ -281,7 +290,7 @@ variables$Desempeño_Intervalos <- cut(variables$Desempeño,
 
 ```
 
-```{r tabla1 , echo=FALSE}
+```{r tabla de frecuencias absolutas 1 , echo=FALSE, include=FALSE}
 # crear la tabla de frecuencias bivariante a
 tabla_frecuenciasa <- table(variables$'parental level of education', variables$Desempeño_Intervalos)
 tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)  
@@ -296,6 +305,21 @@ invisible(capture.output(
   cat("\\vspace{-10mm}")
 ))
 ```
+
+```{r tabla de frecuencias relativas porcentuales 1 , echo=FALSE}
+
+# Calcular la tabla de frecuencias relativas por fila
+tabla_frecuencias_relativas <- prop.table(tabla_frecuenciasa, margin = 1)  
+tabla_frecuencias_relativas <- round(tabla_frecuencias_relativas * 100, 2)  
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuencias_relativas_df <- as.data.frame.matrix(tabla_frecuencias_relativas)
+
+# Crear la tabla formateada
+kable(tabla_frecuencias_relativas_df, caption = "Frecuencias Relativas del Desempeño en Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
 
 En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
 
@@ -425,8 +449,7 @@ ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = 
     plot.title = element_text(hjust = 0.5),
     axis.text.x = element_blank(),
     legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5)) + 
- scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
+    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
 ```
 
 

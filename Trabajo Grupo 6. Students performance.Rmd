@@ -1,5 +1,5 @@
 ---
-title: "Análisis de las variables nivel educativo de los padres y almuerzo de los estudiantes en su rendimiento escolar"
+title: "Análisis del nivel educativo de los padres y el tipo de alimentacion de los estudiantes como posibles indicadores del rendimiento academico de los mismos mediante metodos estadisticos"
 author: "David Mazza, Eros Bande, Sofia Rodriguez "
 date: "`r Sys.Date()`"
 output: 

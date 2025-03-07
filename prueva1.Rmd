@@ -11,7 +11,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE, fig.align = 'center')
 library(tidyverse)
-library(readr)
+library(readxl)
 library(dplyr)
 library(knitr)
 library(kableExtra)
@@ -21,7 +21,22 @@ library(e1071)
 library(extrafont)
 loadfonts(device = "win")
 
-SP <- read.csv("C:/Users/PC/OneDrive/Documents/StudentsPerformance1.csv")
+#Lectura de base de datos
+SP <- read_excel("StudentsPerformance G5-G6.xlsx")
+
+
+#Seleccion de columnas (variables) a estudiar
+variables <-select(SP, "parental level of education", "lunch", "math score", "reading score", "writing score")
+variables <- variables %>%
+  mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
+
+
+#Seleccion de las notas academicas
+
+notas <- select(SP, "math score", "reading score", "writing score")
+
+notas <- notas %>%
+  mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
 ```
 
 # Analisis Bivariante
@@ -30,7 +45,7 @@ Para examinar el nivel de correlación entre las variables "Nivel Educativo de l
 
 ```{r Intervalos de "desempeño", echo=FALSE}
 # crear intervalos para Desempeño
-SP$Desempeño_Intervalos <- cut(SP$Desempeño, 
+variables$Desempeño_Intervalos <- cut(variables$Desempeño, 
                                breaks = c(9, 32, 55, 78, 100), 
                                right = FALSE,
                                include.lowest = TRUE,
@@ -40,7 +55,7 @@ SP$Desempeño_Intervalos <- cut(SP$Desempeño,
 
 ```{r tabla1 , echo=FALSE}
 # crear la tabla de frecuencias bivariante a
-tabla_frecuenciasa <- table(SP$parental_level_of_education, SP$Desempeño_Intervalos)
+tabla_frecuenciasa <- table(variables$'parental level of education', variables$Desempeño_Intervalos)
 tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)  
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
@@ -59,15 +74,14 @@ En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educat
 
 ```{r cuartiles, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
-cuartiles <- SP %>%
-  group_by(parental_level_of_education) %>%
+cuartiles <- variables %>%
+  group_by(`parental level of education`) %>%  # Backticks para nombres con espacios
   summarise(
     Q1 = round(quantile(Desempeño, 0.25), 2),
-    Q2 = round(quantile(Desempeño, 0.50), 2), 
+    Q2 = round(quantile(Desempeño, 0.50), 2),
     Q3 = round(quantile(Desempeño, 0.75), 2))
 
-# Mostrar 
-kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los Padres") %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
@@ -75,10 +89,10 @@ En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educat
 
 ```{r grafico1, echo=FALSE}
 # Grafico de cajas
-ggplot(SP, aes(
-  x = parental_level_of_education, 
+ggplot(variables, aes(
+  x = `parental level of education`, 
   y = Desempeño, 
-  fill = parental_level_of_education)) + 
+  fill = `parental level of education`)) + 
   geom_boxplot() + 
   stat_summary(fun = "mean", geom = "point") + labs(
     title = "Desempeño en función del Nivel Educativo de los Padres", 
@@ -93,8 +107,8 @@ ggplot(SP, aes(
 ```
 
 ```{r caculos basicos, echo=FALSE}
-estadisticos_basicos <- SP %>%
-  group_by(parental_level_of_education) %>%
+estadisticos_basicos <- variables %>%
+  group_by(`parental level of education`) %>%
   summarise(
     Media = round(mean(Desempeño), 2),
     D.Estandar = round(sd(Desempeño), 2),
@@ -110,7 +124,7 @@ De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Pad
 
 ```{r tabla2 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante b
-tabla_frecuenciasb <- table(SP$lunch, SP$Desempeño_Intervalos)
+tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
 tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para formatearla
 
@@ -123,8 +137,8 @@ En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "stan
 
 ```{r cuartiles2, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
-cuartiles2 <- SP %>%
-  group_by(lunch) %>%
+cuartiles2 <- variables %>%
+  group_by(`lunch`) %>%
   summarise(
     Q1 = round(quantile(Desempeño, 0.25), 2),
     Q2 = round(quantile(Desempeño, 0.50), 2), 
@@ -139,7 +153,7 @@ La tabla 5 muestra que los estudiantes que reciben un almuerzo "standard" tienen
 
 ```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
 # Grafico de cajas
-ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) + 
+ggplot(variables, aes(x = `lunch`, y = `Desempeño`, fill = `lunch`)) + 
   geom_boxplot() + 
   stat_summary(fun = "mean", geom = "point") + labs(
     title = "Desempeño en función de la Calidad de los Almuerzos", 
@@ -154,7 +168,7 @@ ggplot(SP, aes(x = lunch, y = Desempeño, fill = lunch)) +
 ```
 
 ```{r calculos basicos2, echo=FALSE}
-estadisticos_basicos2 <- SP %>%
+estadisticos_basicos2 <- variables %>%
   group_by(lunch) %>%
   summarise(
     Media = round(mean(Desempeño), 2),
@@ -171,7 +185,7 @@ kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por 
 
 ```{r grafico3, echo=FALSE}
 # Grafico de cajas
-ggplot(SP, aes(x = parental_level_of_education, y = Desempeño, fill = parental_level_of_education, colour = lunch)) + 
+ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
   geom_boxplot() + 
   stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
     title = "Desempeño en función del Nivel Educativo de los Padres", 

@@ -297,7 +297,7 @@ tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-kable(tabla_frecuenciasa_df, caption = "Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuenciasa_df, caption = "Desempeño En Función del Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 
 # Reducir el espacio entre las tablas
@@ -306,22 +306,26 @@ invisible(capture.output(
 ))
 ```
 
-```{r tabla de frecuencias relativas porcentuales 1 , echo=FALSE}
+```{r tabla de frecuencias relativas porcentuales condicionales 1 , echo=FALSE}
 
-# Calcular la tabla de frecuencias relativas por fila
-tabla_frecuencias_relativas <- prop.table(tabla_frecuenciasa, margin = 1)  
-tabla_frecuencias_relativas <- round(tabla_frecuencias_relativas * 100, 2)  
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasa_sin_marginales <- tabla_frecuenciasa[-nrow(tabla_frecuenciasa), -ncol(tabla_frecuenciasa)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales <- (tabla_frecuenciasa_sin_marginales / rowSums(tabla_frecuenciasa_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales <- round(tabla_frecuencias_relativas_condicionales, 2)
 
 # Convertir la tabla a un data frame para formatearla
-tabla_frecuencias_relativas_df <- as.data.frame.matrix(tabla_frecuencias_relativas)
+tabla_frecuencias_relativas_condicionales_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales)
+tabla_frecuencias_relativas_condicionales_df <- mutate(tabla_frecuencias_relativas_condicionales_df, Sum = "100")
 
 # Crear la tabla formateada
-kable(tabla_frecuencias_relativas_df, caption = "Frecuencias Relativas del Desempeño en Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuencias_relativas_condicionales_df, caption = "Frecuencias Relativas Condicionales Porcentuales por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
 
-En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
+En la tabla 4, se observa que los estudiantes cuyos padres tienen un nivel educativo más alto, como "bachelor's degree" y "master's degree", presentan un mayor porcentaje de estudiantes en los intervalos de desempeño más altos. Por ejemplo, en el intervalo [78,100], el 40.68% de los estudiantes cuyos padres tienen un "master's degree" se encuentran en este rango de alto desempeño, mientras que el 32.2% de los estudiantes con padres que tienen un "bachelor's degree" también están en este intervalo, en comparación, solo el 14.29% de los estudiantes con padres que tienen un "high school" y el 21.23% de aquellos con padres que tienen un "some high school" alcanzan este nivel de desempeño, esta tendencia sugiere una relación lineal directa entre el nivel educativo de los padres y el desempeño académico de los estudiantes, para una mejor visualización de esta relación, analizaremos los cuartiles en la siguiente sección.
 
 
 ```{r cuartiles, echo=FALSE}
@@ -337,7 +341,7 @@ kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los 
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school" y "some high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67.Todo esto se puede visualizar mucho mejor en el grafico de cajas "Desempeño en función del Nivel Educativo de los Padres".
+En la tabla 5, se observa que los estudiantes cuyos padres tienen un nivel educativo más alto, como "master's degree" y "bachelor's degree", presentan cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo, como "high school" o "some high school". Por ejemplo, el Q3 (tercer cuartil) para "master's degree" es de 85.5 puntos, y para "bachelor's degree" es de 80.67 puntos, en comparación, el Q3 para "high school" es de 72.67 puntos, y para "some high school" es de 76.5 puntos, esto significa que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.5 puntos, mientras que el 75% de los estudiantes con padres que tienen un "bachelor's degree" tienen un desempeño superior a 80.67 puntos, por otro lado, el 75% de los estudiantes con padres que tienen un "high school" o "some high school" tienen un desempeño superior a 72.67 puntos y 76.5 puntos, respectivamente. Esta diferencia en los cuartiles, de nuevo, sugiere una relación entre el nivel educativo de los padres y el desempeño académico de los estudiantes, para una mejor visualización de esta relación, se puede consultar el gráfico de cajas titulado "Desempeño en función del Nivel Educativo de los Padres".
 
 ```{r grafico1, echo=FALSE}
 # Grafico de cajas
@@ -372,9 +376,9 @@ kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por N
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
+De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
 
-```{r tabla2 , echo=FALSE}
+```{r tabla2 , echo=FALSE, include=FALSE}
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
@@ -384,6 +388,25 @@ tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la
 kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
+
+```{r tabla de frecuencias relativas porcentuales condicionales 2 , echo=FALSE}
+
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasb_sin_marginales <- tabla_frecuenciasb[-nrow(tabla_frecuenciasb), -ncol(tabla_frecuenciasb)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales2 <- (tabla_frecuenciasb_sin_marginales / rowSums(tabla_frecuenciasb_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales2 <- round(tabla_frecuencias_relativas_condicionales2, 2)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuencias_relativas_condicionales2_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales2)
+tabla_frecuencias_relativas_condicionales2_df <- mutate(tabla_frecuencias_relativas_condicionales2_df, Sum = "100")
+
+# Crear la tabla formateada
+kable(tabla_frecuencias_relativas_condicionales2_df, caption = "Frecuencias Relativas Condicionales Porcentuales por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
 
 En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un mayor número de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay 197 estudiantes con almuerzo "standard" y solo 52 con almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos a nalizar mejor esto mediante cuartiles.
 

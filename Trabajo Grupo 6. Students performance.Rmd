@@ -383,17 +383,17 @@ De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Pad
 niveles_educativos <- unique(variables$`parental level of education`)  
 
 for (i in niveles_educativos) {
-  datos_nivel <- SP %>% filter(`parental level of education` == i)  
+  datos_nivel <- variables %>% filter(`parental level of education` == i)
   
- histograma <- ggplot(datos_nivel, aes(x = as.numeric(Desempeño))) +
+  # Crear el histograma con ggplot2
+  histograma <- ggplot(datos_nivel, aes(x = Desempeño)) +
     geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
     geom_density(color = "red", size = 1) +
-    geom_line(stat = "density", color = "blue", linetype = "dashed", size = 1) +
-    labs(title = paste("Histograma de Desempeño para", nivel),
+    labs(title = paste("Histograma de Desempeño para", i),
          x = "Desempeño",
          y = "Densidad") +
     theme_minimal()
-
+  
   # Mostrar el histograma
   print(histograma)  }
 ```

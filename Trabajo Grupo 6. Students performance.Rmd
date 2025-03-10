@@ -380,12 +380,11 @@ De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Pad
 
 ```{r histogramas1, echo=FALSE}
 # Crear los histogramas para cada categoría de nivel educativo de los padres
-niveles_educativos <- unique(SP$parental_level_of_education)  
+niveles_educativos <- unique(variables$`parental level of education`)  
 
 for (i in niveles_educativos) {
-  datos_nivel <- SP %>% filter(parental_level_of_education == nivel)  
+  datos_nivel <- SP %>% filter(`parental level of education` == i)  
   
-  # Error 3: No se ha cargado el paquete ggplot2
   histograma <- ggplot(datos_nivel, aes(x = as.numeric(Desempeño))) + 
     geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
     geom_density(color = "red", size = 1) +

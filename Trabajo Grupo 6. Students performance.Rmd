@@ -378,6 +378,28 @@ kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por N
 
 De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
 
+```{r histogramas1, echo=FALSE}
+# Crear los histogramas para cada categoría de nivel educativo de los padres
+niveles_educativos <- unique(SP$parental_level_of_education)  
+
+for (i in niveles_educativos) {
+  datos_nivel <- SP %>% filter(parental_level_of_education == nivel)  
+  
+  # Error 3: No se ha cargado el paquete ggplot2
+  histograma <- ggplot(datos_nivel, aes(x = as.numeric(Desempeño))) + 
+    geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+    geom_density(color = "red", size = 1) +
+    geom_line(stat = "density", color = "blue", linetype = "dashed", size = 1) +  
+    labs(title = paste("Histograma de Desempeño para", nivel), 
+         x = "Desempeño",
+         y = "Densidad") +
+    theme_minimal()
+
+  # Mostrar el histograma
+  print(histograma)  
+```
+
+
 ```{r tabla2 , echo=FALSE, include=FALSE}
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)

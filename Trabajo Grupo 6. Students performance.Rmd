@@ -251,11 +251,13 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
   labs(
     title = "Distribucion de la variable parental level of education",
     x = "Nivel de educacion parental",
-    y = "Cantidad"
+    y = "Cantidad",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 
 # Gráficos de las proporciones de las variables cualitativas
@@ -265,11 +267,13 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
   labs(
     title = "Proporción de la variable parental level of education",
     x = "Nivel de educación parental",
-    y = "Proporción (%)"
+    y = "Proporción (%)",
+    fill = ""
   ) + theme_light() +
  theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+     legend.position = "bottom"
     )
 ```
 En el primer grafico se puede observar de manera visual, la distribución de la variable parental level of education como ya fue mencionado anteriormente. Además, en el segundo grafico se aprecia su distribución porcentual.
@@ -283,11 +287,13 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
   labs(
     title = "Distribucion de la variable lunch",
     x = "lunch",
-    y = "Cantidad"
+    y = "Cantidad",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
@@ -295,11 +301,13 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   labs(
     title = "Distribucion de la variable lunch",
     x = "lunch",
-    y = "Proporcion (%)"
+    y = "Proporcion (%)",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 ```
 

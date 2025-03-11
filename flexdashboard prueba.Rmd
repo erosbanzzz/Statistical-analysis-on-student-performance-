@@ -1,0 +1,46 @@
+---
+title: "Untitled"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(highcharter)
+library(gt)
+library(htmltools)
+library(viridis)
+library(knitr)
+
+df<-SP
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+# pagina 1
+
+## column {data-width="600"}
+### distribucion de frecuencia de la variable 
+----------------------------------------------------
+
+## column {data-width="400"}
+### grafico circular
+
+
+
+
+
+
+
+
+# pagina 2
+## column {data-width="500"}
+### grafico de caja 1
+
+## column {data-width="500"}
+### grafico de caja 2
+

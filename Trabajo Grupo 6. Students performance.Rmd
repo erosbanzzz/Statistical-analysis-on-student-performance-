@@ -43,7 +43,6 @@ notas <- notas %>%
 ## HIPOTESIS
 
 La alimentación de los estudiantes y el nivel educativo de los padres influye significativamente en el rendimiento académico de sus hijos, de modo que, a mayor nivel educativo de los padres, mayor será el rendimiento académico de los hijos.
- 
 
 ## DESCRIPCION
 
@@ -51,54 +50,52 @@ Esta investigación tiene como principal enfoque analizar como el nivel educativ
 
 El rendimiento académico es uno de los pilares fundamentales del sistema educativo, este no solo refleja las habilidades intelectuales individuales de los alumnos, sino que también está influenciado por factores externos, como el entorno familiar, el apoyo recibido y el nivel educativo de los padres. Estudios previos han destacado el papel de estas variables externas en la productividad académica de los estudiantes.
 
-En particular, el nivel educativo de los padres puede influir de diversas maneras: fomentando una cultura de estudio, sirviendo como modelo a seguir y brindando apoyo académico. Por otro lado, la alimentación adecuada incide directamente en la capacidad de concentración, un aspecto crucial para el éxito en cualquier ámbito académico. 
+En particular, el nivel educativo de los padres puede influir de diversas maneras: fomentando una cultura de estudio, sirviendo como modelo a seguir y brindando apoyo académico. Por otro lado, la alimentación adecuada incide directamente en la capacidad de concentración, un aspecto crucial para el éxito en cualquier ámbito académico.
 
-Aunque muchas personas podrían afirmar, por lógica o experiencia, que estas variables influyen en el desempeño estudiantil, es fundamental respaldar estas afirmaciones con indicadores y análisis estadísticos que eliminen la subjetividad y las opiniones personales. Comprender esta relación permitirá identificar áreas que requieren atención y diseñar herramientas que favorezcan un entorno propicio para el rendimiento académico. 
+Aunque muchas personas podrían afirmar, por lógica o experiencia, que estas variables influyen en el desempeño estudiantil, es fundamental respaldar estas afirmaciones con indicadores y análisis estadísticos que eliminen la subjetividad y las opiniones personales. Comprender esta relación permitirá identificar áreas que requieren atención y diseñar herramientas que favorezcan un entorno propicio para el rendimiento académico.
 
 ## JUSTIFICACION
 
-El rendimiento académico de los estudiantes es un tema de gran relevancia en el ámbito educativo, ya que está estrechamente vinculado a oportunidades futuras y al desarrollo socioeconómico. Por ende, identificar las variables que pueden predecir el rendimiento escolar es de gran importancia para implementar soluciones efectivas, ya sea mediante ayudas gubernamentales, campañas de concientización o programas de apoyo específicos. 
+El rendimiento académico de los estudiantes es un tema de gran relevancia en el ámbito educativo, ya que está estrechamente vinculado a oportunidades futuras y al desarrollo socioeconómico. Por ende, identificar las variables que pueden predecir el rendimiento escolar es de gran importancia para implementar soluciones efectivas, ya sea mediante ayudas gubernamentales, campañas de concientización o programas de apoyo específicos.
 
-Diversos estudios han sugerido que el nivel educativo de los padres puede ser un factor determinante en el éxito escolar de los hijos, debido a la influencia que ejercen en la formación de hábitos de estudio, la motivación y el acceso a recursos culturales, educativos y alimenticios. Sin embargo, en el contexto local, existe una brecha en la investigación que aborde esta relación de manera específica. Este estudio busca contribuir a la comprensión de este fenómeno, proporcionando información valiosa para diseñar políticas educativas y estrategias que apoyen a las familias en la promoción del éxito académico de sus hijos.  
+Diversos estudios han sugerido que el nivel educativo de los padres puede ser un factor determinante en el éxito escolar de los hijos, debido a la influencia que ejercen en la formación de hábitos de estudio, la motivación y el acceso a recursos culturales, educativos y alimenticios. Sin embargo, en el contexto local, existe una brecha en la investigación que aborde esta relación de manera específica. Este estudio busca contribuir a la comprensión de este fenómeno, proporcionando información valiosa para diseñar políticas educativas y estrategias que apoyen a las familias en la promoción del éxito académico de sus hijos.
 
-Un país con una educación sólida es sinónimo de progreso y desarrollo. Para mejorar el sistema educativo, es necesario prestar atención a su comportamiento de manera detallada y basada en información confiable, la estadística se convierte así en la herramienta más efectiva para lograrlo. 
+Un país con una educación sólida es sinónimo de progreso y desarrollo. Para mejorar el sistema educativo, es necesario prestar atención a su comportamiento de manera detallada y basada en información confiable, la estadística se convierte así en la herramienta más efectiva para lograrlo.
 
 ## OBJETIVOS
 
 ### Objetivo general:
 
-* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+-   Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
 
 ### Objetivos específicos:
 
-* Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
+-   Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
 
-* Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
+-   Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
 
-* Determinar si la alimentación de los estudiantes está relacionada con el rendimiento académico en los exámenes mencionados.
+-   Determinar si la alimentación de los estudiantes está relacionada con el rendimiento académico en los exámenes mencionados.
 
-* Determinar cuál de las dos variables es más influyente en el desempeño escolar.
+-   Determinar cuál de las dos variables es más influyente en el desempeño escolar.
 
 ## VARIABLES
 
-*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
-*	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
-    *	Alguna educación secundaria: Indica que los padres no completaron la educación secundaria.
-  
-    *	Educación secundaria: Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de         programas de equivalencia como el GED.
-  
-    *	Alguna educación universitaria: Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede            incluir la obtención de créditos, diplomas o certificados.
-  
-    *	Título de asociado: Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio            comunitario o escuela vocacional.
-  
-    *	Título de licenciatura o superior: Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un         nivel de educación superior, como una maestría o un doctorado.
+-   Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
+-   Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
+    -   Alguna educación secundaria: Indica que los padres no completaron la educación secundaria.
 
-*	Almuerzo de los estudiantes: Se considera la calidad del almuerzo de los estudiantes en dos categorías, estándar y sin almuerzo o reducido. Es una variable cualitativa nominal
-    *	Sin almuerzo o reducido: Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una          persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
-    * Estándar: Alimentación balanceada en la que se cumplen todas las necesidades básicas.
-  
-Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación. 
+    -   Educación secundaria: Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de programas de equivalencia como el GED.
 
+    -   Alguna educación universitaria: Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede incluir la obtención de créditos, diplomas o certificados.
+
+    -   Título de asociado: Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio comunitario o escuela vocacional.
+
+    -   Título de licenciatura o superior: Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un nivel de educación superior, como una maestría o un doctorado.
+-   Almuerzo de los estudiantes: Se considera la calidad del almuerzo de los estudiantes en dos categorías, estándar y sin almuerzo o reducido. Es una variable cualitativa nominal
+    -   Sin almuerzo o reducido: Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
+    -   Estándar: Alimentación balanceada en la que se cumplen todas las necesidades básicas.
+
+Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación.
 
 ## LIMITES Y ALCANCE
 
@@ -122,10 +119,9 @@ Distintos estudios argumentan que el nivel educativo de los padres no necesariam
 
 (El nivel de educacion de los padres esta correlacionado con la cantidad de tiempo invertido con sus hijos y argumenta que los padres más educados pasan más tiempo con sus hijos. Por ejemplo, Guryan et al encontró que las madres con una educación universitaria o mayor pasan más de 4 horas por semana con sus hijos que las madres con menos educación. Traducción propia)
 
-Además, Kantova (2024) establece a través de numerosas citas y referencias a otros académicos que el porcentaje de graduación de High school (Preparatoria o bachillerato) es menor en individuos que pertenencen a un nucleo familiar de bajo nivel educativo comparado a aquellos de familias más educadas, específicamente, un 72% a 87% respectivamente. Esto es sumamente preocupante a nivel económico y social. Kantova (2024) establece:  
+Además, Kantova (2024) establece a través de numerosas citas y referencias a otros académicos que el porcentaje de graduación de High school (Preparatoria o bachillerato) es menor en individuos que pertenencen a un nucleo familiar de bajo nivel educativo comparado a aquellos de familias más educadas, específicamente, un 72% a 87% respectivamente. Esto es sumamente preocupante a nivel económico y social. Kantova (2024) establece:
 
-“Belfield and Levin (2007) claim that high school graduation is a doorway to economic self-sufficiency and civic engagement. Without a high school diploma, people are more likely to earn a lower income and be arrested, which leads to higher costs for the US.”
-(Belfield y Levin (2007) afirman que graduarse de preparatoria es una puerta a la autosuficiencia económica y el compromiso cívico. Sin un diploma de preparatoria, las personas son más propensas a tener un menor ingreso económico y a ser arrestar, lo que causa mayor costo para Estados Unidos. Traducción propia)
+“Belfield and Levin (2007) claim that high school graduation is a doorway to economic self-sufficiency and civic engagement. Without a high school diploma, people are more likely to earn a lower income and be arrested, which leads to higher costs for the US.” (Belfield y Levin (2007) afirman que graduarse de preparatoria es una puerta a la autosuficiencia económica y el compromiso cívico. Sin un diploma de preparatoria, las personas son más propensas a tener un menor ingreso económico y a ser arrestar, lo que causa mayor costo para Estados Unidos. Traducción propia)
 
 Por otra parte, la fundación Amhersth Wilder Foundation explica la importancia de una buena alimentación en el desarrollo integral de los niños, proceso social y académico. Se ha demostrado que una alimentación pobre o reducida afecta la capacidad de pensamiento, conducta y salud, factores que influencia el desempeño estudiantil (Wilder Research, 2014)
 
@@ -135,10 +131,7 @@ Una nutrición balanceada, que satisfaga todas las necesidades alimenticias de l
 
 Malki, A (2018) realizó un estudio titulado “Effects of Student Nutrition on Academic Perfomance” (Efectos de la nutrición escolar en el desempeño academico) y determinó que los estudiantes que tenían una situación de inseguridad alimenticia tenían una tendencia a un desempeño escolar menor comparado con los demás, aquellos que consumían 2 comidas por día tenían una tendencia a un rendimiento medio y los que tenían acceso a comidas saludables y balanceadas, en promedio, tenían mejor rendimiento. Esto fue determinado a través de un análisis de regresión lineal.
 
-
 A continuación, se mostraran los calculos descriptivos de la variable cuantitativa llamada Desempeño, esta es sera utilizada como la sintesis del desempeño escolar de los estudiantes
-
-
 
 ```{r, echo = FALSE, warning = FALSE}
 Calculos_simples <- notas %>%
@@ -320,9 +313,7 @@ kable(tabla_frecuencias_relativas_df, caption = "Frecuencias Relativas del Desem
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-
 En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
-
 
 ```{r cuartiles, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
@@ -372,7 +363,7 @@ kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por N
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
+De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran.
 
 ```{r tabla2 , echo=FALSE}
 # Crear la tabla de frecuencias bivariante b
@@ -451,5 +442,3 @@ ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = 
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
 ```
-
-

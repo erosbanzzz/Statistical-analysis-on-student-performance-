@@ -425,6 +425,9 @@ De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Pad
 El análisis de curtosis de Fisher revela diferencias en la distribución de las notas de los hijos según el nivel educativo de los padres. Cuando los padres poseen un master’s degree (-0.92), associate’s degree (-0.63) o bachelor’s degree (-0.29), las notas de los hijos muestran distribuciones platicúrticas, lo que significa que hay menor concentración alrededor de la media, mayor dispersión y ausencia de valores extremos, lo que sugiere un desempeño académico heterogéneo. Por el contrario, en hijos de padres con some high school (0.42), high school (0.19) o some college (0.25), las distribuciones son leptocúrticas, lo que significa que las notas estan agrupadas cerca de la media y hay presencia moderada de valores extremos, lo que refleja resultados más estandarizados, aunque con casos puntuales de desempeño excepcional (alto o bajo). Entonces el nivel educativo de los padres se asocia con patrones claros, a mayor formación académica parental (master’s degree, associate’s degree, bachelor’s degree), las notas de los hijos tienden a dispersarse sin polarizarse, mientras que en niveles educativos parentales básicos (some high school, high school, some college), las notas se concentran en la media con cierta variabilidad en extremos.
 
 ```{r histogramasa1, echo=FALSE}
+
+niveles_educativos <- unique(variables$`parental level of education`)
+
 # Filtrar los datos para el primer nivel educativo
 datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[1])
 
@@ -599,6 +602,10 @@ La Tabla 9 muestra que los estudiantes con almuerzo "standard" tienen un promedi
 Por otro lado, la curtosis muestra que el grupo con almuerzo "standard" tiene un valor de -0.19, lo que indica una distribución ligeramente platicúrtica, con menor concentración alrededor de la media y ausencia de valores extremos. En contraste, el grupo con almuerzo "free/reduced" presenta una curtosis de 0.22, lo que sugiere una distribución ligeramente leptocúrtica, con mayor concentración de notas alrededor de la media y una presencia moderada de valores extremos, esto implica que, aunque el desempeño es más consistente en el grupo con almuerzo "standard", también hay una mayor variabilidad en los extremos en el grupo con almuerzo "free/reduced".
 
 ```{r histogramasb1, echo=FALSE}
+
+calidad_almuerzo <- unique(variables$lunch)
+
+# Filtrar los datos para el primer nivel educativo
 datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[1])
 
 # Crear el histograma
@@ -612,6 +619,24 @@ histograma7 <- ggplot(datos_nivel, aes(x = Desempeño)) +
 
 # Mostrar el histograma
 print(histograma7)
+```
+
+```{r histogramasb2, echo=FALSE}
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[2])
+
+# Crear el histograma
+histograma8 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma8)
 ```
 
 # Comparación de las Tres Variables en Conjunto

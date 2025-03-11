@@ -83,19 +83,19 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 *	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
 *	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
-    *	Alguna educación secundaria: Indica que los padres no completaron la educación secundaria.
+    *	Alguna educación secundaria (some high school): Indica que los padres no completaron la educación secundaria.
   
-    *	Educación secundaria: Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de         programas de equivalencia como el GED.
+    *	Educación secundaria (high school): Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de         programas de equivalencia como el GED.
   
-    *	Alguna educación universitaria: Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede            incluir la obtención de créditos, diplomas o certificados.
+    *	Alguna educación universitaria (some college): Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede            incluir la obtención de créditos, diplomas o certificados.
   
-    *	Título de asociado: Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio            comunitario o escuela vocacional.
+    *	Título de asociado (associate's degree): Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio            comunitario o escuela vocacional.
   
-    *	Título de licenciatura o superior: Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un         nivel de educación superior, como una maestría o un doctorado.
+    *	Título de licenciatura o superior (Bachelor's & Master's degree) : Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un         nivel de educación superior, como una maestría o un doctorado.
 
 *	Almuerzo de los estudiantes: Se considera la calidad del almuerzo de los estudiantes en dos categorías, estándar y sin almuerzo o reducido. Es una variable cualitativa nominal
-    *	Sin almuerzo o reducido: Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una          persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
-    * Estándar: Alimentación balanceada en la que se cumplen todas las necesidades básicas.
+    *	Sin almuerzo o reducido (free/reduced): Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una          persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
+    * Estándar (standard): Alimentación balanceada en la que se cumplen todas las necesidades básicas.
   
 Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación. 
 
@@ -138,9 +138,7 @@ Malki, A (2018) realizó un estudio titulado “Effects of Student Nutrition on 
 
 A continuación, se mostraran los calculos descriptivos de la variable cuantitativa llamada Desempeño, esta es sera utilizada como la sintesis del desempeño escolar de los estudiantes
 
-
-
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE}
 Calculos_simples <- notas %>%
   summarise(
     Promedio = round(mean(Desempeño), 2),
@@ -169,6 +167,28 @@ Simetria_df <- data.frame(
 kable(Calculos_simples,
       align = "c", 
       caption = "Cálculo de medidas descriptivas")
+```
+
+En la tabla 1 se presentan distintos cálculos sobre el comportamiento de la variable cuantitativa “Desempeño”. A continuación, se interpretarán estos resultados para conocer a profundidad cómo se comportan las calificaciones de los estudiantes.
+
+El primer cálculo es el promedio de calificaciones cuyo valor es de 67,77 puntos. Esto significa que, en general, los estudiantes obtuvieron una calificación promedio cercano a este valor. Luego, la mediana es de 68,33 puntos, este valor simboliza que el 50% de los estudiantes tiene una calificación por debajo a ese número y el otro 50% por encima. 
+
+El valor de la varianza es de 203,27 puntos al cuadrado, al ser las calificaciones entre 1 y 100 este valor es alto lo cual indica que hay una dispersión significativa en las notas (algunos obtuvieron calificaciones mucho más altas o más bajas que la media), en resumen, las calificaciones presentan una gran heterogeneidad, es decir, no son parecidas.
+
+Una manera más sencilla de ver lo antes mencionado es con la desviación estándar, su valor es de 14,26, lo cual significa que, en promedio, las notas de los estudiantes se desvían en 14,26 puntos por encima o por debajo de la media.
+
+El coeficiente de variación indica cuanto representa la desviación estándar en relación con la media, en este caso su valor es de 21,04% y es moderado, la desviación estándar es el 21,04% del promedio. Las notas no están ni muy concentradas ni muy dispersas.
+
+Para saber la forma de la distribución de las notas, es necesario interpretar el valor de 0,11 de kurtosis, esto significa que la mayoría de las calificaciones están concentradas alrededor de la media y los valores extremos, ya sean muy bajos como muy altos no son tan frecuentes.
+
+El valor -0,3 de la simetría indica que hay un ligero sesgo hacia la izquierda, es decir, hay más estudiantes con calificaciones significativamente más bajas al promedio que altas.
+
+Por ultimo de esta tabla, la calificación mínima obtenida por algún estudiante es de 9 y la máxima es de 100, una calificación perfecta.
+
+En el siguiente grafico se puede observar la forma de la curva que representa la concentración de los datos respecto al promedio
+
+```{r, echo = FALSE, warning = FALSE}
+
 
 #Gráfico de la kurtosis y simetria
 
@@ -189,7 +209,6 @@ ggplot(Kurtosis_data_frame, aes(x = value)) +
 ```
 
 Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
-
 ```{r, echo = FALSE}
 #Distribución de las variables cualitativas
 
@@ -204,6 +223,11 @@ kable(Cantidad_parental_level,
       align = "c", 
       caption = "Distribución de la variable parental level of education")
 
+```
+En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6) con high school, 59 con master’s degree (5,9), 226 (22,6) some college y finalmente, 179 (17,9) some high school. 
+
+```{r, echo = FALSE}
+#Distribución de las variables cualitativas
 Cantidad_lunch <- variables %>%
   group_by(`lunch`) %>%
   summarise(
@@ -214,7 +238,12 @@ Cantidad_lunch <- variables %>%
 kable(Cantidad_lunch,
       align = "c", 
       caption = "Distribución de la variable lunch")
+```
 
+
+En la tabla 3, al igual que la tabla 2 se expresa la distribución de una variable, en este caso, la variable lunch (almuerzo). Hay 355 (35,5%) estudiantes cuyo almuerzo es reducido y 645 estudiantes (64,5%) con un almuerzo estándar.
+
+```{r, echo = FALSE}
 #Graficos de las Distribuciones de las variables cualitativas
 
 ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Cantidad1, fill = `parental level of education`)) +
@@ -229,17 +258,6 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
     text = element_text(family = "serif")
     )
 
-ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
-  geom_col() +
-  labs(
-    title = "Distribucion de la variable lunch",
-    x = "lunch",
-    y = "Cantidad"
-  ) + theme_light() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
-    )
 # Gráficos de las proporciones de las variables cualitativas
 
 ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporcion1, fill = `parental level of education`)) +
@@ -253,6 +271,25 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
     axis.text.x = element_text(angle = 45, hjust = 1),
     text = element_text(family = "serif")
     )
+```
+En el primer grafico se puede observar de manera visual, la distribución de la variable parental level of education como ya fue mencionado anteriormente. Además, en el segundo grafico se aprecia su distribución porcentual.
+
+A continuación, se hara lo mismo con la variable lunch.
+
+```{r, echo = FALSE}
+
+ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
+  geom_col() +
+  labs(
+    title = "Distribucion de la variable lunch",
+    x = "lunch",
+    y = "Cantidad"
+  ) + theme_light() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif")
+    )
+
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
@@ -265,6 +302,7 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
     text = element_text(family = "serif")
     )
 ```
+
 
 # Analisis Bivariante
 
@@ -361,6 +399,12 @@ ggplot(variables, aes(
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5))
 ```
+En este grafico podemos observar el comportamiento del desempeño según el nivel educativo de los padres. 
+
+Primero que nada, es relevante entender la jerarquía entre cada nivel, el cual es el siguiente: Master’s > Bachellors > Associate > Some college > High school > Some high school.
+
+Siguiendo esta jerarquía podemos establecer que los datos si presentan una diferencia en el desempeño según el nivel educativo de los padres. 
+El mayor desempeño está asociado al Master’s degree y cumple con la jerarquía de nivel educativo ya mencionado de manera escalar, hasta llegar a los dos últimos, a partir de esta instancia aquellos estudiantes cuyos padres tienen solo algo de secundaria tuvieron mejor desempeño comparado a los estudiantes con padres que si completaron la secundaria.
 
 ```{r caculos basicos, echo=FALSE}
 estadisticos_basicos <- variables %>%
@@ -383,17 +427,17 @@ De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Pad
 niveles_educativos <- unique(variables$`parental level of education`)  
 
 for (i in niveles_educativos) {
-  datos_nivel <- SP %>% filter(`parental level of education` == i)  
+  datos_nivel <- variables %>% filter(`parental level of education` == i)
   
-  histograma <- ggplot(datos_nivel, aes(x = as.numeric(Desempeño))) + 
+  # Crear el histograma con ggplot2
+  histograma <- ggplot(datos_nivel, aes(x = Desempeño)) +
     geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
     geom_density(color = "red", size = 1) +
-    geom_line(stat = "density", color = "blue", linetype = "dashed", size = 1) +  
-    labs(title = paste("Histograma de Desempeño para", nivel), 
+    labs(title = paste("Histograma de Desempeño para", i),
          x = "Desempeño",
          y = "Densidad") +
     theme_minimal()
-
+  
   # Mostrar el histograma
   print(histograma)  }
 ```
@@ -462,7 +506,7 @@ ggplot(variables, aes(x = `lunch`, y = `Desempeño`, fill = `lunch`)) +
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5))
 ```
-
+En este simple grafico podemos observar de manera clara que los estudiantes con un almuerzo estándar (standard) tuvieron un mejor desempeño que aquellos con un almuerzo reducido.
 ```{r calculos basicos2, echo=FALSE}
 estadisticos_basicos2 <- variables %>%
   group_by(lunch) %>%
@@ -495,5 +539,13 @@ ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = 
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
 ```
+
+Finalmente, llegamos a la parte más importante del trabajo, el grafico que relaciona las 3 variables analizadas. Es una combinación de dos gráficos ya mencionados. 
+
+Primero que nada, hay 5 pares de figuras, la primera está identificada con el color rojo y la segunda con el color azul, de izquierda a derecha. Luego cada color representa los distintos niveles de educación de los padres.
+
+En este grafico podemos ver claramente que los estudiantes con un almuerzo estándar tuvieron un mejor desempeño que los demás. También, se ve la diferencia de desempeño según el nivel educativo parental, mientras mayor sea, mejor el desempeño de los estudiantes.
+
+En resumen, la información presentada es la misma que la de los gráficos anteriores pero de manera conjunta, lo cual representa de manera breve y concisa el análisis realizado en este trabajo.
 
 

@@ -26,3 +26,7 @@ Esta investigación tiene como principal enfoque analizar como el nivel educativ
 # Método Estadístico
 Para análizar la influencia del nivel educativo de los padres y el almuerzo sobre el desempeño academico de los estudiantes se realizarón calculos estadisticos mostrados en tablas, tablas bivariantes, graficos y visualizaciones de datos.
 
+# Visita nuestro Dashboard
+http://rpubs.com/DavidM02/
+
+

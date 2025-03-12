@@ -668,7 +668,7 @@ ggplot(variables, aes(
     title = "Desempeño en función del Nivel Educativo de los Padres y Tipo de Almuerzo", 
     x = "Nivel Educativo de los Padres", 
     y = "Desempeño",
-    fill = "Tipo de Almuerzo") + theme_light() + theme(
+    fill = "") + theme_light() + theme(
     text = element_text(family = "serif"),
     plot.title = element_text(hjust = 0.5, size = 12),
     axis.text.x = element_text(angle = 45, hjust = 1),  

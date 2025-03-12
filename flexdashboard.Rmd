@@ -19,7 +19,7 @@ library(dplyr)
 library(plotly)
 library(DT)
 
-SP <- read_excel("~/GitHub/Statistical-analysis-on-student-performance/Trabajo-Grupo-6.-Students-performance_files/StudentsPerformance G5-G6.xlsx")
+SP <- read_excel("StudentsPerformance G5-G6.xlsx")
 
 
 knitr::opts_chunk$set(echo = TRUE)
@@ -173,43 +173,31 @@ ggplotly(
 
 ### Grafico del análisis de las 3 variables en conjunto
 ```{r, echo = FALSE}
-ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
-  geom_boxplot() + 
-  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
-    title = "Desempeño en función del Nivel Educativo de los Padres", 
-    x = "Nivel Educativo de los Padres", 
-    y = "Desempeño",
-    fill = "",  
-    colour = "") + theme(
-    text = element_text(family = "serif"),
-    plot.title = element_text(hjust = 0.5),
-    axis.text.x = element_blank(),
-    legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))          
-```
-
-# 3 variables en conjunto interactivo
-
-## column {data-width="300"}
-
-### Grafico del análisis de las 3 variables en conjunto
-```{r, echo = FALSE}
 ggplotly(
-  ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
-  geom_boxplot() + 
-  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
-    title = "Desempeño en función del Nivel Educativo de los Padres", 
+  ggplot(variables, aes(
+    x = `parental level of education`, 
+    y = Desempeño, 
+    fill = lunch  # Usar "fill" para separar por "lunch"
+  )) + 
+  geom_boxplot(
+    position = position_dodge(width = 0.8),  # Dodge para separar cajas
+     alpha = 0.7) + stat_summary(
+    fun = "mean", 
+    geom = "point", 
+    position = position_dodge(width = 0.8),  
+    size = 2, 
+    color = "black"
+  ) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres y Tipo de Almuerzo", 
     x = "Nivel Educativo de los Padres", 
     y = "Desempeño",
-    fill = "",  
-    colour = "") + theme(
+    fill = "Tipo de Almuerzo") + theme_light() + theme(
     text = element_text(family = "serif"),
-    plot.title = element_text(hjust = 0.5),
-    axis.text.x = element_blank(),
-    legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))  
-)        
+    plot.title = element_text(hjust = 0.5, size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1),  
+    legend.position = "bottom") + scale_fill_manual(values = c("standard" = "#00BFC4", "free/reduced" = "#F8766D")))          
 ```
+
 
 
 

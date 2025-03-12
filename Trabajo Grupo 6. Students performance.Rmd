@@ -651,19 +651,28 @@ print(histograma8)
 
 ```{r grafico3, echo=FALSE}
 # Grafico de cajas
-ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
-  geom_boxplot() + 
-  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
-    title = "Desempeño en función del Nivel Educativo de los Padres", 
+ggplot(variables, aes(
+    x = `parental level of education`, 
+    y = Desempeño, 
+    fill = lunch  # Usar "fill" para separar por "lunch"
+  )) + 
+  geom_boxplot(
+    position = position_dodge(width = 0.8),  # Dodge para separar cajas
+    alpha = 0.7) + stat_summary(
+    fun = "mean", 
+    geom = "point", 
+    position = position_dodge(width = 0.8),  
+    size = 2, 
+    color = "black"
+  ) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres y Tipo de Almuerzo", 
     x = "Nivel Educativo de los Padres", 
     y = "Desempeño",
-    fill = "",  
-    colour = "") + theme(
+    fill = "Tipo de Almuerzo") + theme_light() + theme(
     text = element_text(family = "serif"),
-    plot.title = element_text(hjust = 0.5),
-    axis.text.x = element_blank(),
-    legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
+    plot.title = element_text(hjust = 0.5, size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1),  
+    legend.position = "bottom") + scale_fill_manual(values = c("standard" = "#00BFC4", "free/reduced" = "#F8766D"))           
 ```
 
 Finalmente, llegamos a la parte más importante del trabajo, el grafico que relaciona las 3 variables analizadas. Es una combinación de dos gráficos ya mencionados. 

@@ -149,24 +149,7 @@ ggplot(variables, aes(
 
 # pestana 3
 
-
-### Comparación de las Tres Variables en Conjunto
-
-```{r}
-ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
-  geom_boxplot() + 
-  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
-    title = "Desempeño en función del Nivel Educativo de los Padres", 
-    x = "Nivel Educativo de los Padres", 
-    y = "Desempeño",
-    fill = "",  
-    colour = "") + theme(
-    text = element_text(family = "serif"),
-    plot.title = element_text(hjust = 0.5),
-    axis.text.x = element_blank(),
-    legend.position = "bottom",
-    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))      
-```
+## column 700
 
 
 

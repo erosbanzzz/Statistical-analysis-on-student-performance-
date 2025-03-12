@@ -14,13 +14,15 @@ library(htmltools)
 library(viridis)
 library(knitr)
 library(ggplot2)
+library(readxl)
 
-df<-StudentsPerformance_G5_G6
+SP <- read_excel("StudentsPerformance_G5_G6.xlsx")
+
 
 knitr::opts_chunk$set(echo = TRUE)
 
 #Lectura de base de datos
-SP <- read_excel("StudentsPerformance G5-G6.xlsx")
+
 
 
 #Seleccion de columnas (variables) a estudiar
@@ -32,8 +34,6 @@ notas <- select(SP, "math score", "reading score", "writing score")
 
 notas <- notas %>%
   mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
-```
-
 ```
 
 
@@ -149,10 +149,24 @@ ggplot(variables, aes(
 
 # pestana 3
 
-## column {data-width="500"}
 
-### DE
+### Comparación de las Tres Variables en Conjunto
 
-##column {data-width="500"}
+```{r}
+ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
+  geom_boxplot() + 
+  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres", 
+    x = "Nivel Educativo de los Padres", 
+    y = "Desempeño",
+    fill = "",  
+    colour = "") + theme(
+    text = element_text(family = "serif"),
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))      
+```
 
-###DE
+
+

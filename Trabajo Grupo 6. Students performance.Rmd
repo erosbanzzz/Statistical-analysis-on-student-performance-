@@ -251,11 +251,13 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
   labs(
     title = "Distribucion de la variable parental level of education",
     x = "Nivel de educacion parental",
-    y = "Cantidad"
+    y = "Cantidad",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 
 # Gráficos de las proporciones de las variables cualitativas
@@ -265,11 +267,13 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
   labs(
     title = "Proporción de la variable parental level of education",
     x = "Nivel de educación parental",
-    y = "Proporción (%)"
+    y = "Proporción (%)",
+    fill = ""
   ) + theme_light() +
  theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+     legend.position = "bottom"
     )
 ```
 En el primer grafico se puede observar de manera visual, la distribución de la variable parental level of education como ya fue mencionado anteriormente. Además, en el segundo grafico se aprecia su distribución porcentual.
@@ -283,11 +287,13 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
   labs(
     title = "Distribucion de la variable lunch",
     x = "lunch",
-    y = "Cantidad"
+    y = "Cantidad",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
@@ -295,11 +301,13 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   labs(
     title = "Distribucion de la variable lunch",
     x = "lunch",
-    y = "Proporcion (%)"
+    y = "Proporcion (%)",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 ```
 
@@ -413,35 +421,111 @@ estadisticos_basicos <- variables %>%
     Promedio = round(mean(Desempeño), 2),
     D.Estandar = round(sd(Desempeño), 2),
     CV = round(((D.Estandar / Promedio) * 100), 2),
-    Asimetria = round(skewness(Desempeño), 2),
-    Kurtosis = round(kurtosis(Desempeño), 2))
+    Asimetria = round(skewness(Desempeño, type = 1), 2),
+    Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
 # Mostrar
 kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran. 
+De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. En cuanto a la asimetría, los valores cercanos a cero indican que la distribución de las notas es aproximadamente simétrica en la mayoría de los grupos, aunque se observa un ligero sesgo hacia la izquierda en algunos casos, como en "high school" (-0.39) y "some high school" (-0.56), lo que sugiere que hay una mayor concentración de estudiantes con calificaciones ligeramente más bajas en estos grupos.
 
-```{r histogramas1, echo=FALSE}
-# Crear los histogramas para cada categoría de nivel educativo de los padres
-niveles_educativos <- unique(variables$`parental level of education`)  
+El análisis de curtosis de Fisher revela diferencias en la distribución de las notas de los hijos según el nivel educativo de los padres. Cuando los padres poseen un master’s degree (-0.92), associate’s degree (-0.63) o bachelor’s degree (-0.29), las notas de los hijos muestran distribuciones platicúrticas, lo que significa que hay menor concentración alrededor de la media, mayor dispersión y ausencia de valores extremos, lo que sugiere un desempeño académico heterogéneo. Por el contrario, en hijos de padres con some high school (0.42), high school (0.19) o some college (0.25), las distribuciones son leptocúrticas, lo que significa que las notas estan agrupadas cerca de la media y hay presencia moderada de valores extremos, lo que refleja resultados más estandarizados, aunque con casos puntuales de desempeño excepcional (alto o bajo). Entonces el nivel educativo de los padres se asocia con patrones claros, a mayor formación académica parental (master’s degree, associate’s degree, bachelor’s degree), las notas de los hijos tienden a dispersarse sin polarizarse, mientras que en niveles educativos parentales básicos (some high school, high school, some college), las notas se concentran en la media con cierta variabilidad en extremos.
 
-for (i in niveles_educativos) {
-  datos_nivel <- variables %>% filter(`parental level of education` == i)
-  
-  # Crear el histograma con ggplot2
-  histograma <- ggplot(datos_nivel, aes(x = Desempeño)) +
-    geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
-    geom_density(color = "red", size = 1) +
-    labs(title = paste("Histograma de Desempeño para", i),
-         x = "Desempeño",
-         y = "Densidad") +
-    theme_minimal()
-  
-  # Mostrar el histograma
-  print(histograma)  }
+```{r histogramasa1, echo=FALSE}
+
+niveles_educativos <- unique(variables$`parental level of education`)
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[1])
+
+# Crear el histograma
+histograma1 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma1)
 ```
 
+```{r histogramasa2, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[2])
+
+histograma2 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma2)
+```
+
+```{r histogramasa3, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[3])
+
+histograma3 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[3]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma3)
+```
+
+```{r histogramasa4, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[4])
+
+histograma4 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[4]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma4)
+```
+
+```{r histogramasa5, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[5])
+
+histograma5 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[5]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma5)
+```
+
+```{r histogramasa6, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[6])
+
+histograma6 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[6]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma6)
+```
 
 ```{r tabla2 , echo=FALSE, include=FALSE}
 # Crear la tabla de frecuencias bivariante b
@@ -473,7 +557,7 @@ kable(tabla_frecuencias_relativas_condicionales2_df, caption = "Frecuencias Rela
 ```
 
 
-En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un mayor número de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay 197 estudiantes con almuerzo "standard" y solo 52 con almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos a nalizar mejor esto mediante cuartiles.
+En la tabla 7 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un porcentaje mayor de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay un 30,54% de estudiantes que consumen el almuerzo "standard" y solo un 14,65% de estudiantes que consumen el almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos analizar mejor esto mediante cuartiles.
 
 ```{r cuartiles2, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
@@ -489,7 +573,7 @@ kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", form
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-La tabla 5 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
+La tabla 8 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
 
 ```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
 # Grafico de cajas
@@ -514,11 +598,53 @@ estadisticos_basicos2 <- variables %>%
     Promedio = round(mean(Desempeño), 2),
     D.Estandar = round(sd(Desempeño), 2),
     CV = round(((D.Estandar / Promedio) * 100), 2),
-    Asimetria = round(skewness(Desempeño), 2),
+    Asimetria = round(skewness(Desempeño, type = 1), 2),
     Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
 # Mostrar
 kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+La Tabla 9 muestra que los estudiantes con almuerzo "standard" tienen un promedio de desempeño (70.84 puntos), mayor al de los estudiantes con almuerzo "free/reduced" (62.20 puntos). Además, el coeficiente de variación (CV) es menor para los estudiantes con almuerzo "standard" (18.62%) en comparación con los que tienen almuerzo "free/reduced" (23.25%), lo que indica que el desempeño es más consistente y menos disperso en el primer grupo. En cuanto a la asimetría, ambos grupos presentan un ligero sesgo hacia la izquierda, es decir, una mayor concentración de estudiantes con calificaciones ligeramente más bajas, más los estudiantes con almuerzo  "free/reduced" (con -0.31) que los que consumen el almuerzo "standard" (con -0.19)
+
+Por otro lado, la curtosis muestra que el grupo con almuerzo "standard" tiene un valor de -0.19, lo que indica una distribución ligeramente platicúrtica, con menor concentración alrededor de la media y ausencia de valores extremos. En contraste, el grupo con almuerzo "free/reduced" presenta una curtosis de 0.22, lo que sugiere una distribución ligeramente leptocúrtica, con mayor concentración de notas alrededor de la media y una presencia moderada de valores extremos, esto implica que, aunque el desempeño es más consistente en el grupo con almuerzo "standard", también hay una mayor variabilidad en los extremos en el grupo con almuerzo "free/reduced".
+
+```{r histogramasb1, echo=FALSE}
+
+calidad_almuerzo <- unique(variables$lunch)
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[1])
+
+# Crear el histograma
+histograma7 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma7)
+```
+
+```{r histogramasb2, echo=FALSE}
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[2])
+
+# Crear el histograma
+histograma8 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma8)
 ```
 
 # Comparación de las Tres Variables en Conjunto
@@ -548,4 +674,20 @@ En este grafico podemos ver claramente que los estudiantes con un almuerzo está
 
 En resumen, la información presentada es la misma que la de los gráficos anteriores pero de manera conjunta, lo cual representa de manera breve y concisa el análisis realizado en este trabajo.
 
+# Conclusión
+
+A lo largo de este trabajo, se ha analizado la relación entre el nivel educativo de los padres y la calidad del almuerzo de los estudiantes con su desempeño académico, utilizando datos de un grupo representativo de estudiantes estadounidenses. Los resultados obtenidos respaldan la hipótesis inicial de que ambas variables tienen un impacto significativo en el rendimiento académico de los estudiantes.
+Los análisis realizados muestran una clara relación entre el nivel educativo de los padres y el desempeño académico de los estudiantes. En general, los estudiantes cuyos padres tienen un nivel educativo más alto tienden a obtener calificaciones más altas en comparación con aquellos cuyos padres tienen un nivel educativo más bajo. Esto se evidencia en los cuartiles, donde los estudiantes con padres más educados presentan valores más altos, lo que indica un mejor desempeño en todos los niveles de distribución. Además, el coeficiente de variación es más bajo en los grupos con padres con un mayor nivel de estudio, lo que sugiere que el desempeño es más consistente y menos disperso en estos grupos.
+
+Estos resultados están en concordancia con los antecedentes teóricos, que sugieren que los padres con mayor nivel educativo tienden a invertir más tiempo en el desarrollo académico de sus hijos, fomentan una cultura de estudio y proporcionan un entorno más propicio para el aprendizaje, reforzando la idea de que el nivel educativo de los padres es un factor determinante en el éxito académico de los estudiantes.
+En cuanto a la calidad del almuerzo, los resultados indican que los estudiantes que reciben un almuerzo "standard" tienen un mejor desempeño académico en comparación con aquellos que reciben un almuerzo "free/reduced". En términos generales, los estudiantes con almuerzo "standard" presentan una mayor proporción en los intervalos de desempeño más altos, mientras que aquellos con almuerzo "free/reduced" tienden a concentrarse en los intervalos de desempeño más bajos. Los cuartiles también reflejan esta tendencia, mostrando que los estudiantes con almuerzo "standard" tienen un desempeño superior en todos los percentiles analizados.
+
+Estos resultados respaldan la hipotesis de que una alimentación adecuada y balanceada tiene un impacto positivo en la capacidad cognitiva, la concentración y el rendimiento académico de los estudiantes. Una nutrición deficiente, por otro lado, puede afectar negativamente el desempeño escolar, lo que subraya la importancia de programas de alimentación escolar que aseguren una dieta equilibrada para todos los estudiantes.
+Al comparar ambas variables, se observa que el nivel educativo de los padres tiene un impacto más pronunciado en el desempeño académico que la calidad del almuerzo. Sin embargo, ambas variables son significativas y están interrelacionadas. Los estudiantes con padres más educados tienen más probabilidades de acceder a una alimentación de mejor calidad, lo que a su vez refuerza su rendimiento académico. Esto sugiere que las políticas educativas y sociales deben abordar ambas dimensiones para maximizar el impacto en el desempeño estudiantil.
+
+Los hallazgos de este estudio ofrecen evidencias que sugieren que sería positivo replantear ciertas políticas en el ámbito educativo y social. En primer lugar, es fundamental implementar programas que apoyen a las familias con menores niveles educativos, brindándoles herramientas y recursos para fomentar el éxito académico de sus hijos. Esto podría incluir talleres para padres, programas de tutoría y acceso a materiales educativos. En segundo lugar, es crucial garantizar que todos los estudiantes tengan acceso a una alimentación adecuada, ya sea a través de programas de almuerzos escolares subsidiados o iniciativas que promuevan una nutrición balanceada.
+
+Es importante reconocer que este estudio tiene limitaciones. En primer lugar, los datos utilizados son de un grupo específico de estudiantes estadounidenses, por lo que los resultados pueden no ser generalizables a otros contextos culturales o socioeconómicos. Además, el estudio no profundiza en las razones específicas detrás de las relaciones observadas, como el tiempo que los padres dedican a sus hijos o los hábitos alimenticios específicos. Futuras investigaciones podrían explorar estas dimensiones con mayor detalle, utilizando metodologías cualitativas y cuantitativas complementarias.
+
+En conclusión, este estudio confirma que tanto el nivel educativo de los padres como la calidad del almuerzo de los estudiantes son factores clave que influyen en el rendimiento académico. Ambos aspectos deben ser considerados en el diseño de políticas educativas y sociales que busquen mejorar el desempeño escolar y, en última instancia, contribuir al desarrollo socioeconómico de las comunidades. Un enfoque integral que combine el apoyo familiar y la nutrición adecuada puede ser la clave para reducir las brechas educativas y promover un entorno más equitativo y propicio para el aprendizaje.
 

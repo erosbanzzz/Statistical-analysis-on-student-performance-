@@ -206,6 +206,9 @@ ggplot(Kurtosis_data_frame, aes(x = value)) +
   ggtitle(paste("Histograma sobre la simetria y kurtosis")) + theme_minimal() +
   theme(text = element_text(family = "serif"))
 
+kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
 ```
 
 Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
@@ -259,6 +262,9 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
     text = element_text(family = "serif"),
     legend.position = "bottom"
     )
+
+kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
 
 # Gráficos de las proporciones de las variables cualitativas
 

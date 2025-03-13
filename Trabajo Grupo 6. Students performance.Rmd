@@ -1,5 +1,5 @@
 ---
-title: "Análisis del nivel educativo de los padres y el tipo de alimentacion de los estudiantes como posibles indicadores del rendimiento academico de los mismos mediante metodos estadisticos"
+title: "ANALISIS DEL NIVEL EDICATIVO DE LOS PADRES Y EL TIPO DE ALIMENTACION DE LOS ESTUDIANES COMO POSIBLES INDICADORES DEL RENDIMIENTO ACADEMICO DE LOS MISMOS MEDIANTE METODOS ESTADISTICOS"
 author: "David Mazza, Eros Bande, Sofia Rodriguez "
 date: "`r Sys.Date()`"
 output: 
@@ -43,6 +43,7 @@ notas <- notas %>%
 ## HIPOTESIS
 
 La alimentación de los estudiantes y el nivel educativo de los padres influye significativamente en el rendimiento académico de sus hijos, de modo que, a mayor nivel educativo de los padres, mayor será el rendimiento académico de los hijos.
+ 
 
 ## DESCRIPCION
 
@@ -50,52 +51,54 @@ Esta investigación tiene como principal enfoque analizar como el nivel educativ
 
 El rendimiento académico es uno de los pilares fundamentales del sistema educativo, este no solo refleja las habilidades intelectuales individuales de los alumnos, sino que también está influenciado por factores externos, como el entorno familiar, el apoyo recibido y el nivel educativo de los padres. Estudios previos han destacado el papel de estas variables externas en la productividad académica de los estudiantes.
 
-En particular, el nivel educativo de los padres puede influir de diversas maneras: fomentando una cultura de estudio, sirviendo como modelo a seguir y brindando apoyo académico. Por otro lado, la alimentación adecuada incide directamente en la capacidad de concentración, un aspecto crucial para el éxito en cualquier ámbito académico.
+En particular, el nivel educativo de los padres puede influir de diversas maneras: fomentando una cultura de estudio, sirviendo como modelo a seguir y brindando apoyo académico. Por otro lado, la alimentación adecuada incide directamente en la capacidad de concentración, un aspecto crucial para el éxito en cualquier ámbito académico. 
 
-Aunque muchas personas podrían afirmar, por lógica o experiencia, que estas variables influyen en el desempeño estudiantil, es fundamental respaldar estas afirmaciones con indicadores y análisis estadísticos que eliminen la subjetividad y las opiniones personales. Comprender esta relación permitirá identificar áreas que requieren atención y diseñar herramientas que favorezcan un entorno propicio para el rendimiento académico.
+Aunque muchas personas podrían afirmar, por lógica o experiencia, que estas variables influyen en el desempeño estudiantil, es fundamental respaldar estas afirmaciones con indicadores y análisis estadísticos que eliminen la subjetividad y las opiniones personales. Comprender esta relación permitirá identificar áreas que requieren atención y diseñar herramientas que favorezcan un entorno propicio para el rendimiento académico. 
 
 ## JUSTIFICACION
 
-El rendimiento académico de los estudiantes es un tema de gran relevancia en el ámbito educativo, ya que está estrechamente vinculado a oportunidades futuras y al desarrollo socioeconómico. Por ende, identificar las variables que pueden predecir el rendimiento escolar es de gran importancia para implementar soluciones efectivas, ya sea mediante ayudas gubernamentales, campañas de concientización o programas de apoyo específicos.
+El rendimiento académico de los estudiantes es un tema de gran relevancia en el ámbito educativo, ya que está estrechamente vinculado a oportunidades futuras y al desarrollo socioeconómico. Por ende, identificar las variables que pueden predecir el rendimiento escolar es de gran importancia para implementar soluciones efectivas, ya sea mediante ayudas gubernamentales, campañas de concientización o programas de apoyo específicos. 
 
-Diversos estudios han sugerido que el nivel educativo de los padres puede ser un factor determinante en el éxito escolar de los hijos, debido a la influencia que ejercen en la formación de hábitos de estudio, la motivación y el acceso a recursos culturales, educativos y alimenticios. Sin embargo, en el contexto local, existe una brecha en la investigación que aborde esta relación de manera específica. Este estudio busca contribuir a la comprensión de este fenómeno, proporcionando información valiosa para diseñar políticas educativas y estrategias que apoyen a las familias en la promoción del éxito académico de sus hijos.
+Diversos estudios han sugerido que el nivel educativo de los padres puede ser un factor determinante en el éxito escolar de los hijos, debido a la influencia que ejercen en la formación de hábitos de estudio, la motivación y el acceso a recursos culturales, educativos y alimenticios. Sin embargo, en el contexto local, existe una brecha en la investigación que aborde esta relación de manera específica. Este estudio busca contribuir a la comprensión de este fenómeno, proporcionando información valiosa para diseñar políticas educativas y estrategias que apoyen a las familias en la promoción del éxito académico de sus hijos.  
 
-Un país con una educación sólida es sinónimo de progreso y desarrollo. Para mejorar el sistema educativo, es necesario prestar atención a su comportamiento de manera detallada y basada en información confiable, la estadística se convierte así en la herramienta más efectiva para lograrlo.
+Un país con una educación sólida es sinónimo de progreso y desarrollo. Para mejorar el sistema educativo, es necesario prestar atención a su comportamiento de manera detallada y basada en información confiable, la estadística se convierte así en la herramienta más efectiva para lograrlo. 
 
 ## OBJETIVOS
 
 ### Objetivo general:
 
--   Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
 
 ### Objetivos específicos:
 
--   Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
+* Realizar un análisis descriptivo de las variables nivel educativo de los padres, la alimentación de los estudiantes y las calificaciones de los estudiantes en los exámenes establecidos.
 
--   Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
+* Establecer la relación entre el nivel educativo de los padres y los resultados de los estudiantes en los exámenes de habilidad verbal, matemática e inglés.
 
--   Determinar si la alimentación de los estudiantes está relacionada con el rendimiento académico en los exámenes mencionados.
+* Determinar si la alimentación de los estudiantes está relacionada con el rendimiento académico en los exámenes mencionados.
 
--   Determinar cuál de las dos variables es más influyente en el desempeño escolar.
+* Determinar cuál de las dos variables es más influyente en el desempeño escolar.
 
 ## VARIABLES
 
--   Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
--   Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
-    -   Alguna educación secundaria: Indica que los padres no completaron la educación secundaria.
+*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
+*	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
+    *	Alguna educación secundaria (some high school): Indica que los padres no completaron la educación secundaria.
+  
+    *	Educación secundaria (high school): Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de         programas de equivalencia como el GED.
+  
+    *	Alguna educación universitaria (some college): Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede            incluir la obtención de créditos, diplomas o certificados.
+  
+    *	Título de asociado (associate's degree): Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio            comunitario o escuela vocacional.
+  
+    *	Título de licenciatura o superior (Bachelor's & Master's degree) : Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un         nivel de educación superior, como una maestría o un doctorado.
 
-    -   Educación secundaria: Se refiere a que los padres completaron la escuela secundaria, incluyendo aquellos que lo hicieron a través de programas de equivalencia como el GED.
+*	Almuerzo de los estudiantes: Se considera la calidad del almuerzo de los estudiantes en dos categorías, estándar y sin almuerzo o reducido. Es una variable cualitativa nominal
+    *	Sin almuerzo o reducido (free/reduced): Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una          persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
+    * Estándar (standard): Alimentación balanceada en la que se cumplen todas las necesidades básicas.
+  
+Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación. 
 
-    -   Alguna educación universitaria: Se refiere a los padres que asistieron a la universidad, pero no obtuvieron un título. Esto puede incluir la obtención de créditos, diplomas o certificados.
-
-    -   Título de asociado: Indica que los padres obtuvieron un título de asociado, que generalmente se obtiene en dos años en un colegio comunitario o escuela vocacional.
-
-    -   Título de licenciatura o superior: Significa que los padres completaron un programa de licenciatura (cuatro años o más) o incluso un nivel de educación superior, como una maestría o un doctorado.
--   Almuerzo de los estudiantes: Se considera la calidad del almuerzo de los estudiantes en dos categorías, estándar y sin almuerzo o reducido. Es una variable cualitativa nominal
-    -   Sin almuerzo o reducido: Alimentación deficiente en la que se presentan carencias de nutrientes importantes en el desarrollo de una persona de edad temprana, que tiene consecuencias cognitivas a largo plazo
-    -   Estándar: Alimentación balanceada en la que se cumplen todas las necesidades básicas.
-
-Estas variables fueron seleccionadas porque representan factores externos que, aunque no son elegidos por los estudiantes, tienen un gran impacto en sus vidas. El nivel educativo de los padres y la alimentación diaria son determinantes en las posibilidades académicas, recreativas y alimenticias de un individuo, aspectos que, a su vez, pueden influir en su rendimiento académico. Determinar si esto se cumple o no, será el objetivo de esta investigación.
 
 ## LIMITES Y ALCANCE
 
@@ -119,9 +122,10 @@ Distintos estudios argumentan que el nivel educativo de los padres no necesariam
 
 (El nivel de educacion de los padres esta correlacionado con la cantidad de tiempo invertido con sus hijos y argumenta que los padres más educados pasan más tiempo con sus hijos. Por ejemplo, Guryan et al encontró que las madres con una educación universitaria o mayor pasan más de 4 horas por semana con sus hijos que las madres con menos educación. Traducción propia)
 
-Además, Kantova (2024) establece a través de numerosas citas y referencias a otros académicos que el porcentaje de graduación de High school (Preparatoria o bachillerato) es menor en individuos que pertenencen a un nucleo familiar de bajo nivel educativo comparado a aquellos de familias más educadas, específicamente, un 72% a 87% respectivamente. Esto es sumamente preocupante a nivel económico y social. Kantova (2024) establece:
+Además, Kantova (2024) establece a través de numerosas citas y referencias a otros académicos que el porcentaje de graduación de High school (Preparatoria o bachillerato) es menor en individuos que pertenencen a un nucleo familiar de bajo nivel educativo comparado a aquellos de familias más educadas, específicamente, un 72% a 87% respectivamente. Esto es sumamente preocupante a nivel económico y social. Kantova (2024) establece:  
 
-“Belfield and Levin (2007) claim that high school graduation is a doorway to economic self-sufficiency and civic engagement. Without a high school diploma, people are more likely to earn a lower income and be arrested, which leads to higher costs for the US.” (Belfield y Levin (2007) afirman que graduarse de preparatoria es una puerta a la autosuficiencia económica y el compromiso cívico. Sin un diploma de preparatoria, las personas son más propensas a tener un menor ingreso económico y a ser arrestar, lo que causa mayor costo para Estados Unidos. Traducción propia)
+“Belfield and Levin (2007) claim that high school graduation is a doorway to economic self-sufficiency and civic engagement. Without a high school diploma, people are more likely to earn a lower income and be arrested, which leads to higher costs for the US.”
+(Belfield y Levin (2007) afirman que graduarse de preparatoria es una puerta a la autosuficiencia económica y el compromiso cívico. Sin un diploma de preparatoria, las personas son más propensas a tener un menor ingreso económico y a ser arrestar, lo que causa mayor costo para Estados Unidos. Traducción propia)
 
 Por otra parte, la fundación Amhersth Wilder Foundation explica la importancia de una buena alimentación en el desarrollo integral de los niños, proceso social y académico. Se ha demostrado que una alimentación pobre o reducida afecta la capacidad de pensamiento, conducta y salud, factores que influencia el desempeño estudiantil (Wilder Research, 2014)
 
@@ -131,9 +135,10 @@ Una nutrición balanceada, que satisfaga todas las necesidades alimenticias de l
 
 Malki, A (2018) realizó un estudio titulado “Effects of Student Nutrition on Academic Perfomance” (Efectos de la nutrición escolar en el desempeño academico) y determinó que los estudiantes que tenían una situación de inseguridad alimenticia tenían una tendencia a un desempeño escolar menor comparado con los demás, aquellos que consumían 2 comidas por día tenían una tendencia a un rendimiento medio y los que tenían acceso a comidas saludables y balanceadas, en promedio, tenían mejor rendimiento. Esto fue determinado a través de un análisis de regresión lineal.
 
+
 A continuación, se mostraran los calculos descriptivos de la variable cuantitativa llamada Desempeño, esta es sera utilizada como la sintesis del desempeño escolar de los estudiantes
 
-```{r, echo = FALSE, warning = FALSE}
+```{r, echo = FALSE}
 Calculos_simples <- notas %>%
   summarise(
     Promedio = round(mean(Desempeño), 2),
@@ -162,6 +167,28 @@ Simetria_df <- data.frame(
 kable(Calculos_simples,
       align = "c", 
       caption = "Cálculo de medidas descriptivas")
+```
+
+En la tabla 1 se presentan distintos cálculos sobre el comportamiento de la variable cuantitativa “Desempeño”. A continuación, se interpretarán estos resultados para conocer a profundidad cómo se comportan las calificaciones de los estudiantes.
+
+El primer cálculo es el promedio de calificaciones cuyo valor es de 67,77 puntos. Esto significa que, en general, los estudiantes obtuvieron una calificación promedio cercano a este valor. Luego, la mediana es de 68,33 puntos, este valor simboliza que el 50% de los estudiantes tiene una calificación por debajo a ese número y el otro 50% por encima. 
+
+El valor de la varianza es de 203,27 puntos al cuadrado, al ser las calificaciones entre 1 y 100 este valor es alto lo cual indica que hay una dispersión significativa en las notas (algunos obtuvieron calificaciones mucho más altas o más bajas que la media), en resumen, las calificaciones presentan una gran heterogeneidad, es decir, no son parecidas.
+
+Una manera más sencilla de ver lo antes mencionado es con la desviación estándar, su valor es de 14,26, lo cual significa que, en promedio, las notas de los estudiantes se desvían en 14,26 puntos por encima o por debajo de la media.
+
+El coeficiente de variación indica cuanto representa la desviación estándar en relación con la media, en este caso su valor es de 21,04% y es moderado, la desviación estándar es el 21,04% del promedio. Las notas no están ni muy concentradas ni muy dispersas.
+
+Para saber la forma de la distribución de las notas, es necesario interpretar el valor de 0,11 de kurtosis, esto significa que la mayoría de las calificaciones están concentradas alrededor de la media y los valores extremos, ya sean muy bajos como muy altos no son tan frecuentes.
+
+El valor -0,3 de la simetría indica que hay un ligero sesgo hacia la izquierda, es decir, hay más estudiantes con calificaciones significativamente más bajas al promedio que altas.
+
+Por ultimo de esta tabla, la calificación mínima obtenida por algún estudiante es de 9 y la máxima es de 100, una calificación perfecta.
+
+En el siguiente grafico se puede observar la forma de la curva que representa la concentración de los datos respecto al promedio
+
+```{r, echo = FALSE, warning = FALSE}
+
 
 #Gráfico de la kurtosis y simetria
 
@@ -182,7 +209,6 @@ ggplot(Kurtosis_data_frame, aes(x = value)) +
 ```
 
 Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
-
 ```{r, echo = FALSE}
 #Distribución de las variables cualitativas
 
@@ -197,6 +223,11 @@ kable(Cantidad_parental_level,
       align = "c", 
       caption = "Distribución de la variable parental level of education")
 
+```
+En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6) con high school, 59 con master’s degree (5,9), 226 (22,6) some college y finalmente, 179 (17,9) some high school. 
+
+```{r, echo = FALSE}
+#Distribución de las variables cualitativas
 Cantidad_lunch <- variables %>%
   group_by(`lunch`) %>%
   summarise(
@@ -207,7 +238,12 @@ Cantidad_lunch <- variables %>%
 kable(Cantidad_lunch,
       align = "c", 
       caption = "Distribución de la variable lunch")
+```
 
+
+En la tabla 3, al igual que la tabla 2 se expresa la distribución de una variable, en este caso, la variable lunch (almuerzo). Hay 355 (35,5%) estudiantes cuyo almuerzo es reducido y 645 estudiantes (64,5%) con un almuerzo estándar.
+
+```{r, echo = FALSE}
 #Graficos de las Distribuciones de las variables cualitativas
 
 ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Cantidad1, fill = `parental level of education`)) +
@@ -215,24 +251,15 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
   labs(
     title = "Distribucion de la variable parental level of education",
     x = "Nivel de educacion parental",
-    y = "Cantidad"
+    y = "Cantidad",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 
-ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
-  geom_col() +
-  labs(
-    title = "Distribucion de la variable lunch",
-    x = "lunch",
-    y = "Cantidad"
-  ) + theme_light() +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
-    )
 # Gráficos de las proporciones de las variables cualitativas
 
 ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Proporcion1, fill = `parental level of education`)) +
@@ -240,24 +267,50 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Propo
   labs(
     title = "Proporción de la variable parental level of education",
     x = "Nivel de educación parental",
-    y = "Proporción (%)"
+    y = "Proporción (%)",
+    fill = ""
   ) + theme_light() +
  theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+     legend.position = "bottom"
     )
+```
+En el primer grafico se puede observar de manera visual, la distribución de la variable parental level of education como ya fue mencionado anteriormente. Además, en el segundo grafico se aprecia su distribución porcentual.
+
+A continuación, se hara lo mismo con la variable lunch.
+
+```{r, echo = FALSE}
+
+ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
+  geom_col() +
+  labs(
+    title = "Distribucion de la variable lunch",
+    x = "lunch",
+    y = "Cantidad",
+    fill = ""
+  ) + theme_light() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
+    )
+
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
     title = "Distribucion de la variable lunch",
     x = "lunch",
-    y = "Proporcion (%)"
+    y = "Proporcion (%)",
+    fill = ""
   ) + theme_light() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
-    text = element_text(family = "serif")
+    text = element_text(family = "serif"),
+    legend.position = "bottom"
     )
 ```
+
 
 # Analisis Bivariante
 
@@ -290,7 +343,7 @@ tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)
 tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
 
 # Crear la tabla formateada
-kable(tabla_frecuenciasa_df, caption = "Desempeño En Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuenciasa_df, caption = "Desempeño En Función del Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 
 # Reducir el espacio entre las tablas
@@ -299,21 +352,27 @@ invisible(capture.output(
 ))
 ```
 
-```{r tabla de frecuencias relativas porcentuales 1 , echo=FALSE}
+```{r tabla de frecuencias relativas porcentuales condicionales 1 , echo=FALSE}
 
-# Calcular la tabla de frecuencias relativas por fila
-tabla_frecuencias_relativas <- prop.table(tabla_frecuenciasa, margin = 1)  
-tabla_frecuencias_relativas <- round(tabla_frecuencias_relativas * 100, 2)  
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasa_sin_marginales <- tabla_frecuenciasa[-nrow(tabla_frecuenciasa), -ncol(tabla_frecuenciasa)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales <- (tabla_frecuenciasa_sin_marginales / rowSums(tabla_frecuenciasa_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales <- round(tabla_frecuencias_relativas_condicionales, 2)
 
 # Convertir la tabla a un data frame para formatearla
-tabla_frecuencias_relativas_df <- as.data.frame.matrix(tabla_frecuencias_relativas)
+tabla_frecuencias_relativas_condicionales_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales)
+tabla_frecuencias_relativas_condicionales_df <- mutate(tabla_frecuencias_relativas_condicionales_df, Sum = "100")
 
 # Crear la tabla formateada
-kable(tabla_frecuencias_relativas_df, caption = "Frecuencias Relativas del Desempeño en Comparación al Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
+kable(tabla_frecuencias_relativas_condicionales_df, caption = "Frecuencias Relativas Condicionales Porcentuales por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-En la tabla 1 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienden a tener (en proporción) un mayor número de estudiantes en los intervalos de desempeño más altos ([78,100]), por ejemplo, en el intervalo [78,100], los estudiantes con padres que tienen un "master's degree" tienen 24 estudiantes, mientras que los estudiantes con padres que tienen un "high school" tienen solo 28 estudiantes, a pesar de que el grupo de "high school" es mucho más grande (196 estudiantes en total) que el grupo de "master's degree" (con 59 estudiantes en total). Sin embargo busquemos visualizar esto de mejor manera mediante cualtiles.
+
+En la tabla 4, se observa que los estudiantes cuyos padres tienen un nivel educativo más alto, como "bachelor's degree" y "master's degree", presentan un mayor porcentaje de estudiantes en los intervalos de desempeño más altos. Por ejemplo, en el intervalo [78,100], el 40.68% de los estudiantes cuyos padres tienen un "master's degree" se encuentran en este rango de alto desempeño, mientras que el 32.2% de los estudiantes con padres que tienen un "bachelor's degree" también están en este intervalo, en comparación, solo el 14.29% de los estudiantes con padres que tienen un "high school" y el 21.23% de aquellos con padres que tienen un "some high school" alcanzan este nivel de desempeño, esta tendencia sugiere una relación lineal directa entre el nivel educativo de los padres y el desempeño académico de los estudiantes, para una mejor visualización de esta relación, analizaremos los cuartiles en la siguiente sección.
+
 
 ```{r cuartiles, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
@@ -328,7 +387,7 @@ kable(cuartiles, caption = "Cuartiles del Desempeño por Nivel Educativo de los 
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-En la tabla 2 se observa que los estudiantes cuyos padres tienen un nivel educativo más alto (como "bachelor's degree" y "master's degree") tienen cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo (como "high school" y "some high school"), por ejemplo, el Q3 (tercer cuartil) para "master's degree" es 85.50, mientras que para "high school" es 72.67. Esto indica que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.50, mientras que el 75% de los estudiantes con padres que tienen un "high school" tienen un desempeño superior a 72.67.Todo esto se puede visualizar mucho mejor en el grafico de cajas "Desempeño en función del Nivel Educativo de los Padres".
+En la tabla 5, se observa que los estudiantes cuyos padres tienen un nivel educativo más alto, como "master's degree" y "bachelor's degree", presentan cuartiles más altos en comparación con aquellos cuyos padres tienen un nivel educativo más bajo, como "high school" o "some high school". Por ejemplo, el Q3 (tercer cuartil) para "master's degree" es de 85.5 puntos, y para "bachelor's degree" es de 80.67 puntos, en comparación, el Q3 para "high school" es de 72.67 puntos, y para "some high school" es de 76.5 puntos, esto significa que el 75% de los estudiantes con padres que tienen un "master's degree" tienen un desempeño superior a 85.5 puntos, mientras que el 75% de los estudiantes con padres que tienen un "bachelor's degree" tienen un desempeño superior a 80.67 puntos, por otro lado, el 75% de los estudiantes con padres que tienen un "high school" o "some high school" tienen un desempeño superior a 72.67 puntos y 76.5 puntos, respectivamente. Esta diferencia en los cuartiles, de nuevo, sugiere una relación entre el nivel educativo de los padres y el desempeño académico de los estudiantes, para una mejor visualización de esta relación, se puede consultar el gráfico de cajas titulado "Desempeño en función del Nivel Educativo de los Padres".
 
 ```{r grafico1, echo=FALSE}
 # Grafico de cajas
@@ -348,6 +407,12 @@ ggplot(variables, aes(
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5))
 ```
+En este grafico podemos observar el comportamiento del desempeño según el nivel educativo de los padres. 
+
+Primero que nada, es relevante entender la jerarquía entre cada nivel, el cual es el siguiente: Master’s > Bachellors > Associate > Some college > High school > Some high school.
+
+Siguiendo esta jerarquía podemos establecer que los datos si presentan una diferencia en el desempeño según el nivel educativo de los padres. 
+El mayor desempeño está asociado al Master’s degree y cumple con la jerarquía de nivel educativo ya mencionado de manera escalar, hasta llegar a los dos últimos, a partir de esta instancia aquellos estudiantes cuyos padres tienen solo algo de secundaria tuvieron mejor desempeño comparado a los estudiantes con padres que si completaron la secundaria.
 
 ```{r caculos basicos, echo=FALSE}
 estadisticos_basicos <- variables %>%
@@ -356,16 +421,113 @@ estadisticos_basicos <- variables %>%
     Promedio = round(mean(Desempeño), 2),
     D.Estandar = round(sd(Desempeño), 2),
     CV = round(((D.Estandar / Promedio) * 100), 2),
-    Asimetria = round(skewness(Desempeño), 2),
-    Kurtosis = round(kurtosis(Desempeño), 2))
+    Asimetria = round(skewness(Desempeño, type = 1), 2),
+    Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
 # Mostrar
 kable(estadisticos_basicos, caption = "Estadisticas Basicas del Desempeño por Nivel Educativo de los Padres", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-De la tabla 3 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. Y la asimetría y la curtosis muestran.
+De la tabla 6 podemos notar que mientras mayor es el "Nivel Educativo de los Padres" mayor es la media de "Desempeño" de de los estudiantes, por ejemplo, "master’s degree" tiene 73.6 puntos en promedio por estudiante y "bachelor’s degree" tiene 71.92 puntos en promedio por estudiante, mientras que "some high school" tiene 65.11 puntos en promedio por estudiante y "high school" tiene 63.10 puntos en promedio por estudiante. El coeficiente de variación es más bajo para los niveles educativos más altos, lo que indica que el desempeño es más consistente en estos grupos, por ejemplo, "master’s degree" tiene un 18.48% de variación de notas por estudiante  y "bachelor’s degree" tiene un 19.4% de variación de notas por estudiante, mientras que "some high school" tiene un 23.01% de variación de notas por estudiante y "high school" tiene un 21.41% de variación de notas por estudiante. En cuanto a la asimetría, los valores cercanos a cero indican que la distribución de las notas es aproximadamente simétrica en la mayoría de los grupos, aunque se observa un ligero sesgo hacia la izquierda en algunos casos, como en "high school" (-0.39) y "some high school" (-0.56), lo que sugiere que hay una mayor concentración de estudiantes con calificaciones ligeramente más bajas en estos grupos.
 
-```{r tabla2 , echo=FALSE}
+El análisis de curtosis de Fisher revela diferencias en la distribución de las notas de los hijos según el nivel educativo de los padres. Cuando los padres poseen un master’s degree (-0.92), associate’s degree (-0.63) o bachelor’s degree (-0.29), las notas de los hijos muestran distribuciones platicúrticas, lo que significa que hay menor concentración alrededor de la media, mayor dispersión y ausencia de valores extremos, lo que sugiere un desempeño académico heterogéneo. Por el contrario, en hijos de padres con some high school (0.42), high school (0.19) o some college (0.25), las distribuciones son leptocúrticas, lo que significa que las notas estan agrupadas cerca de la media y hay presencia moderada de valores extremos, lo que refleja resultados más estandarizados, aunque con casos puntuales de desempeño excepcional (alto o bajo). Entonces el nivel educativo de los padres se asocia con patrones claros, a mayor formación académica parental (master’s degree, associate’s degree, bachelor’s degree), las notas de los hijos tienden a dispersarse sin polarizarse, mientras que en niveles educativos parentales básicos (some high school, high school, some college), las notas se concentran en la media con cierta variabilidad en extremos.
+
+```{r histogramasa1, echo=FALSE}
+
+niveles_educativos <- unique(variables$`parental level of education`)
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[1])
+
+# Crear el histograma
+histograma1 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma1)
+```
+
+```{r histogramasa2, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[2])
+
+histograma2 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma2)
+```
+
+```{r histogramasa3, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[3])
+
+histograma3 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[3]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma3)
+```
+
+```{r histogramasa4, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[4])
+
+histograma4 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[4]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma4)
+```
+
+```{r histogramasa5, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[5])
+
+histograma5 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[5]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma5)
+```
+
+```{r histogramasa6, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[6])
+
+histograma6 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", niveles_educativos[6]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+print(histograma6)
+```
+
+```{r tabla2 , echo=FALSE, include=FALSE}
 # Crear la tabla de frecuencias bivariante b
 tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)
 tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
@@ -376,7 +538,26 @@ kable(tabla_frecuenciasb_df, caption = "Desempeño En Comparación al Tipo de Al
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-En la tabla 4 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un mayor número de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay 197 estudiantes con almuerzo "standard" y solo 52 con almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos a nalizar mejor esto mediante cuartiles.
+```{r tabla de frecuencias relativas porcentuales condicionales 2 , echo=FALSE}
+
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasb_sin_marginales <- tabla_frecuenciasb[-nrow(tabla_frecuenciasb), -ncol(tabla_frecuenciasb)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales2 <- (tabla_frecuenciasb_sin_marginales / rowSums(tabla_frecuenciasb_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales2 <- round(tabla_frecuencias_relativas_condicionales2, 2)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuencias_relativas_condicionales2_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales2)
+tabla_frecuencias_relativas_condicionales2_df <- mutate(tabla_frecuencias_relativas_condicionales2_df, Sum = "100")
+
+# Crear la tabla formateada
+kable(tabla_frecuencias_relativas_condicionales2_df, caption = "Frecuencias Relativas Condicionales Porcentuales por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+En la tabla 7 podemos observar que los estudiantes que reciben un almuerzo "standard" tienen un porcentaje mayor de estudiantes en los intervalos de desempeño más altos en proporción que los que reciben un almuerzo "free/reduced", por ejemplo, en el intervalo [78,100], hay un 30,54% de estudiantes que consumen el almuerzo "standard" y solo un 14,65% de estudiantes que consumen el almuerzo "free/reduced", esto sugiere que la calidad del almuerzo está relacionada con un mejor rendimiento académico, pasemos analizar mejor esto mediante cuartiles.
 
 ```{r cuartiles2, echo=FALSE}
 # Calcular cuartiles por nivel educativo de los padres
@@ -392,7 +573,7 @@ kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", form
   kable_styling(latex_options = c("striped", "hold_position"))
 ```
 
-La tabla 5 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
+La tabla 8 muestra que los estudiantes que reciben un almuerzo "standard" tienen un desempeño más alto en comparación con los que reciben un almuerzo "free/reduced", ya que los estudiantes con almuerzo estandar tienen un "Desempeño" superior al de los estudiantes con almuerzos "free/reduced", por ejemplo, el Q3 (tercer cuartil) para "standard" es de 79.67 puntos, mientras que para "free/reduced" es de 72.50 puntos, esto indica que el 75% de los estudiantes con almuerzo "standard" tienen un desempeño superior a 79.67 puntos, mientras que el 75% de los estudiantes con almuerzo "free/reduced" tienen un desempeño superior a 72.50 puntos, todo esto se puede observar mucho mejor en el grafico "Desempeño en función de la Calidad de los Almuerzos".
 
 ```{r grafico2, echo=FALSE, fig.width = 5, fig.height = 5}
 # Grafico de cajas
@@ -409,7 +590,7 @@ ggplot(variables, aes(x = `lunch`, y = `Desempeño`, fill = `lunch`)) +
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5))
 ```
-
+En este simple grafico podemos observar de manera clara que los estudiantes con un almuerzo estándar (standard) tuvieron un mejor desempeño que aquellos con un almuerzo reducido.
 ```{r calculos basicos2, echo=FALSE}
 estadisticos_basicos2 <- variables %>%
   group_by(lunch) %>%
@@ -417,11 +598,53 @@ estadisticos_basicos2 <- variables %>%
     Promedio = round(mean(Desempeño), 2),
     D.Estandar = round(sd(Desempeño), 2),
     CV = round(((D.Estandar / Promedio) * 100), 2),
-    Asimetria = round(skewness(Desempeño), 2),
+    Asimetria = round(skewness(Desempeño, type = 1), 2),
     Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
 # Mostrar
 kable(estadisticos_basicos2, caption = "Estadisticas Basicas del Desempeño por Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
   kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+La Tabla 9 muestra que los estudiantes con almuerzo "standard" tienen un promedio de desempeño (70.84 puntos), mayor al de los estudiantes con almuerzo "free/reduced" (62.20 puntos). Además, el coeficiente de variación (CV) es menor para los estudiantes con almuerzo "standard" (18.62%) en comparación con los que tienen almuerzo "free/reduced" (23.25%), lo que indica que el desempeño es más consistente y menos disperso en el primer grupo. En cuanto a la asimetría, ambos grupos presentan un ligero sesgo hacia la izquierda, es decir, una mayor concentración de estudiantes con calificaciones ligeramente más bajas, más los estudiantes con almuerzo  "free/reduced" (con -0.31) que los que consumen el almuerzo "standard" (con -0.19)
+
+Por otro lado, la curtosis muestra que el grupo con almuerzo "standard" tiene un valor de -0.19, lo que indica una distribución ligeramente platicúrtica, con menor concentración alrededor de la media y ausencia de valores extremos. En contraste, el grupo con almuerzo "free/reduced" presenta una curtosis de 0.22, lo que sugiere una distribución ligeramente leptocúrtica, con mayor concentración de notas alrededor de la media y una presencia moderada de valores extremos, esto implica que, aunque el desempeño es más consistente en el grupo con almuerzo "standard", también hay una mayor variabilidad en los extremos en el grupo con almuerzo "free/reduced".
+
+```{r histogramasb1, echo=FALSE}
+
+calidad_almuerzo <- unique(variables$lunch)
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[1])
+
+# Crear el histograma
+histograma7 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma7)
+```
+
+```{r histogramasb2, echo=FALSE}
+
+# Filtrar los datos para el primer nivel educativo
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[2])
+
+# Crear el histograma
+histograma8 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_density(color = "red", size = 1) +
+  labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Mostrar el histograma
+print(histograma8)
 ```
 
 # Comparación de las Tres Variables en Conjunto
@@ -442,3 +665,29 @@ ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = 
     legend.position = "bottom",
     legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
 ```
+
+Finalmente, llegamos a la parte más importante del trabajo, el grafico que relaciona las 3 variables analizadas. Es una combinación de dos gráficos ya mencionados. 
+
+Primero que nada, hay 5 pares de figuras, la primera está identificada con el color rojo y la segunda con el color azul, de izquierda a derecha. Luego cada color representa los distintos niveles de educación de los padres.
+
+En este grafico podemos ver claramente que los estudiantes con un almuerzo estándar tuvieron un mejor desempeño que los demás. También, se ve la diferencia de desempeño según el nivel educativo parental, mientras mayor sea, mejor el desempeño de los estudiantes.
+
+En resumen, la información presentada es la misma que la de los gráficos anteriores pero de manera conjunta, lo cual representa de manera breve y concisa el análisis realizado en este trabajo.
+
+#Conclusión
+
+A lo largo de este trabajo, se ha analizado la relación entre el nivel educativo de los padres y la calidad del almuerzo de los estudiantes con su desempeño académico, utilizando datos de un grupo representativo de estudiantes estadounidenses. Los resultados obtenidos respaldan la hipótesis inicial de que ambas variables tienen un impacto significativo en el rendimiento académico de los estudiantes.
+Los análisis realizados muestran una clara relación entre el nivel educativo de los padres y el desempeño académico de los estudiantes. En general, los estudiantes cuyos padres tienen un nivel educativo más alto tienden a obtener calificaciones más altas en comparación con aquellos cuyos padres tienen un nivel educativo más bajo. Esto se evidencia en los cuartiles, donde los estudiantes con padres más educados presentan valores más altos, lo que indica un mejor desempeño en todos los niveles de distribución. Además, el coeficiente de variación es más bajo en los grupos con padres con un mayor nivel de estudio, lo que sugiere que el desempeño es más consistente y menos disperso en estos grupos.
+
+Estos resultados están en concordancia con los antecedentes teóricos, que sugieren que los padres con mayor nivel educativo tienden a invertir más tiempo en el desarrollo académico de sus hijos, fomentan una cultura de estudio y proporcionan un entorno más propicio para el aprendizaje, reforzando la idea de que el nivel educativo de los padres es un factor determinante en el éxito académico de los estudiantes.
+En cuanto a la calidad del almuerzo, los resultados indican que los estudiantes que reciben un almuerzo "standard" tienen un mejor desempeño académico en comparación con aquellos que reciben un almuerzo "free/reduced". En términos generales, los estudiantes con almuerzo "standard" presentan una mayor proporción en los intervalos de desempeño más altos, mientras que aquellos con almuerzo "free/reduced" tienden a concentrarse en los intervalos de desempeño más bajos. Los cuartiles también reflejan esta tendencia, mostrando que los estudiantes con almuerzo "standard" tienen un desempeño superior en todos los percentiles analizados.
+
+Estos resultados respaldan la hipotesis de que una alimentación adecuada y balanceada tiene un impacto positivo en la capacidad cognitiva, la concentración y el rendimiento académico de los estudiantes. Una nutrición deficiente, por otro lado, puede afectar negativamente el desempeño escolar, lo que subraya la importancia de programas de alimentación escolar que aseguren una dieta equilibrada para todos los estudiantes.
+Al comparar ambas variables, se observa que el nivel educativo de los padres tiene un impacto más pronunciado en el desempeño académico que la calidad del almuerzo. Sin embargo, ambas variables son significativas y están interrelacionadas. Los estudiantes con padres más educados tienen más probabilidades de acceder a una alimentación de mejor calidad, lo que a su vez refuerza su rendimiento académico. Esto sugiere que las políticas educativas y sociales deben abordar ambas dimensiones para maximizar el impacto en el desempeño estudiantil.
+
+Los hallazgos de este estudio ofrecen evidencias que sugieren que sería positivo replantear ciertas políticas en el ámbito educativo y social. En primer lugar, es fundamental implementar programas que apoyen a las familias con menores niveles educativos, brindándoles herramientas y recursos para fomentar el éxito académico de sus hijos. Esto podría incluir talleres para padres, programas de tutoría y acceso a materiales educativos. En segundo lugar, es crucial garantizar que todos los estudiantes tengan acceso a una alimentación adecuada, ya sea a través de programas de almuerzos escolares subsidiados o iniciativas que promuevan una nutrición balanceada.
+
+Es importante reconocer que este estudio tiene limitaciones. En primer lugar, los datos utilizados son de un grupo específico de estudiantes estadounidenses, por lo que los resultados pueden no ser generalizables a otros contextos culturales o socioeconómicos. Además, el estudio no profundiza en las razones específicas detrás de las relaciones observadas, como el tiempo que los padres dedican a sus hijos o los hábitos alimenticios específicos. Futuras investigaciones podrían explorar estas dimensiones con mayor detalle, utilizando metodologías cualitativas y cuantitativas complementarias.
+
+En conclusión, este estudio confirma que tanto el nivel educativo de los padres como la calidad del almuerzo de los estudiantes son factores clave que influyen en el rendimiento académico. Ambos aspectos deben ser considerados en el diseño de políticas educativas y sociales que busquen mejorar el desempeño escolar y, en última instancia, contribuir al desarrollo socioeconómico de las comunidades. Un enfoque integral que combine el apoyo familiar y la nutrición adecuada puede ser la clave para reducir las brechas educativas y promover un entorno más equitativo y propicio para el aprendizaje.
+

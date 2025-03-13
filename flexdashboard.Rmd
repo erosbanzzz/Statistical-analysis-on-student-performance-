@@ -18,6 +18,7 @@ library(readxl)
 library(dplyr)
 library(plotly)
 library(DT)
+library(e1071)
 
 SP <- read_excel("StudentsPerformance G5-G6.xlsx")
 
@@ -40,12 +41,84 @@ notas <- notas %>%
 ```
 
 # Tabla de datos a analizar
-===
+
 ## column {data-width="1200"}
 
 ### Tabla de datos 
 ```{r, echo = FALSE}
 datatable(variables, 
+          options = list(
+            pageLength = 10,  
+            scrollX = TRUE,   
+            autoWidth = TRUE),
+              )
+          rownames = FALSE   
+          filter = "top"
+```
+
+# Variable Desempeño
+
+```{r, echo = FALSE, include=FALSE}
+Calculos_simples <- notas %>%
+  summarise(
+    Promedio = round(mean(Desempeño), 2),
+    Mediana = round(median(Desempeño), 2),
+    Varianza = round(var(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    CV = paste0(round(((D.Estandar / Promedio) * 100), 2), "%"),
+    Kurtosis = round(kurtosis(Desempeño), 2),
+    Simetria = round(skewness(Desempeño), 2),
+    Minimo = min(Desempeño),
+    Maximo = max(Desempeño)
+  )
+
+Valor_Kurtosis <- Calculos_simples$Kurtosis  #Creacion de un dataframe que almacena el valor de kurtosis para un mejor grafico
+Kurtosis_df <- data.frame(
+  Calculo1 = "Kurtosis",
+  Valor1 = Valor_Kurtosis)
+
+Valor_Simetria <- Calculos_simples$Simetria
+Simetria_df <- data.frame(
+  Calculo = "Simetria",
+  Valor2 = Valor_Simetria
+)
+```
+
+### Histograma Kurtosis y Asimetría
+
+```{r histograma01, echo = FALSE, warning = FALSE}
+
+
+#Gráfico de la kurtosis y simetria
+
+Valores_kurtosis<- variables$Desempeño      #Selección de la variable desempeño
+kurtosis_value <- round(kurtosis(Valores_kurtosis), 2) #Calculo de la kurtosis
+
+x_range <-seq(min(Valores_kurtosis), max(Valores_kurtosis), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(Valores_kurtosis), sd(Valores_kurtosis)))
+densidad_curve <- data.frame(x = density(Valores_kurtosis)$x, y = density(Valores_kurtosis)$y)
+
+Kurtosis_data_frame <- data.frame(value = Valores_kurtosis)  #Creación de un data frame para usar en el grafico como X
+
+histograma01 <- ggplot(Kurtosis_data_frame, aes(x = value)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma sobre la simetria y kurtosis"),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma01, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+### Calculos Basicos
+
+```{r, echo = FALSE}
+datatable(Calculos_simples, 
           options = list(
             pageLength = 10,  
             scrollX = TRUE,   
@@ -118,7 +191,104 @@ ggplotly(
 ```
 
 
+# Analisis Bivariante
 
+## Frecuencias Relativas Condicionales
+
+```{r preparar tablas, echo=FALSE, include=FALSE}
+# Crear intervalos para Desempeño
+variables$Desempeño_Intervalos <- cut(variables$Desempeño, 
+                               breaks = c(9, 32, 55, 78, 100), 
+                               right = FALSE,
+                               include.lowest = TRUE,
+                               labels = c("[9,32)", "[32,55)", "[55,78)", "[78,100]"))
+# crear la tabla de frecuencias bivariante a
+tabla_frecuenciasa <- table(variables$'parental level of education', variables$Desempeño_Intervalos)
+tabla_frecuenciasa <- addmargins(tabla_frecuenciasa)  
+tabla_frecuenciasa_df <- as.data.frame.matrix(tabla_frecuenciasa) # Convertir la tabla a un data frame para formatearla
+
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasa_sin_marginales <- tabla_frecuenciasa[-nrow(tabla_frecuenciasa), -ncol(tabla_frecuenciasa)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales <- (tabla_frecuenciasa_sin_marginales / rowSums(tabla_frecuenciasa_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales <- round(tabla_frecuencias_relativas_condicionales, 2)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuencias_relativas_condicionales_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales)
+tabla_frecuencias_relativas_condicionales_df <- mutate(tabla_frecuencias_relativas_condicionales_df, Sum = "100")
+
+# Crear la tabla de frecuencias bivariante b
+tabla_frecuenciasb <- table(variables$lunch, variables$Desempeño_Intervalos)
+tabla_frecuenciasb <- addmargins(tabla_frecuenciasb)   # Añadir las frecuencias marginales
+tabla_frecuenciasb_df <- as.data.frame.matrix(tabla_frecuenciasb) # Convertir la tabla a un data frame para 
+
+
+# Eliminar los totales marginales de la tabla de frecuencias absolutas
+tabla_frecuenciasb_sin_marginales <- tabla_frecuenciasb[-nrow(tabla_frecuenciasb), -ncol(tabla_frecuenciasb)] #Elimino ambas fila y columna de frecuencias marginales porque cuando redondee los totales de la filas no me van a quedar bien
+
+# Calcular las frecuencias relativas condicionales porcentuales por fila
+tabla_frecuencias_relativas_condicionales2 <- (tabla_frecuenciasb_sin_marginales / rowSums(tabla_frecuenciasb_sin_marginales)) * 100
+tabla_frecuencias_relativas_condicionales2 <- round(tabla_frecuencias_relativas_condicionales2, 2)
+
+# Convertir la tabla a un data frame para formatearla
+tabla_frecuencias_relativas_condicionales2_df <- as.data.frame.matrix(tabla_frecuencias_relativas_condicionales2)
+tabla_frecuencias_relativas_condicionales2_df <- mutate(tabla_frecuencias_relativas_condicionales2_df, Sum = "100")
+
+```
+
+### Tabla 1: Por Nivel Educativo
+## column {data-width="500"}
+```{r, echo=FALSE}
+# Tabla para nivel educativo
+datatable(
+  tabla_frecuencias_relativas_condicionales_df,
+  caption = "Frecuencias Relativas por Nivel Educativo",
+  options = list(
+    pageLength = 6,
+    dom = 't',
+    autoWidth = TRUE
+  )
+) %>% 
+  formatStyle(names(tabla_frecuencias_relativas_condicionales_df), 
+              backgroundColor = 'white')
+```
+
+### Tabla 2: Por Calidad de Almuerzo
+## column {data-width="500"}
+```{r, echo=FALSE}
+# Tabla para tipo de almuerzo
+datatable(
+  tabla_frecuencias_relativas_condicionales2_df,
+  caption = "Frecuencias Relativas por Calidad de Almuerzo",
+  options = list(
+    pageLength = 6,
+    dom = 't',
+    autoWidth = TRUE
+  )
+) %>% 
+  formatStyle(names(tabla_frecuencias_relativas_condicionales2_df),
+              backgroundColor = 'white')
+```
+
+
+```{r, echo=FALSE}
+
+
+
+# Tabla de frecuencias relativas condicionales para almuerzo
+datatable(
+  tabla_frecuencias_relativas_condicionales2_df,
+  caption = "Frecuencias Relativas Condicionales Por Calidad de Almuerzo",
+  options = list(
+    pageLength = 6,
+    dom = 't', 
+    autoWidth = TRUE
+  )
+) %>% 
+  formatStyle(names(tabla_frecuencias_relativas_condicionales2_df),
+              backgroundColor = 'white')
+```
 
 # Graficos de caja
 
@@ -166,6 +336,226 @@ ggplotly(
 )
 ```
 
+# Histogramas Por Nivel Educativo Parte  1:
+
+## column {data-width=500}
+
+### Para Bachelor´s Degree 
+
+```{r histogramasa1, echo=FALSE}
+niveles_educativos <- unique(variables$`parental level of education`)
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[1])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma1 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma1, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+## column {data-width=500}
+### Para Some College
+
+```{r histogramasa2, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[2])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma2 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad mejorada (manteniendo estilo original)
+ggplotly(histograma2       , tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+# Histogramas Por Nivel Educativo Parte  2:
+
+## column {data-width=500}
+
+### Para  Master´s Degree 
+
+```{r histogramasa3, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[3])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma3 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[3]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma3, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+## column {data-width=500}
+### Para Associate´s Degree
+
+```{r histogramasa4, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[4])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma4 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[4]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma4, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+# Histogramas Por Nivel Educativo Parte 3:
+
+## column {data-width=500}
+
+### Para High School
+
+```{r histogramasa5, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[5])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma5 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[5]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma5, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+## column {data-width=500}
+### Para Some High School
+
+```{r histogramasa6, echo=FALSE}
+
+datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[6])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma6 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", niveles_educativos[6]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma6, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+# Histogramas por Calidad de Almuerzo:
+## column {data-width=500}
+### Para Standard
+
+```{r histogramasb1, echo=FALSE}
+
+calidad_almuerzo <- unique(variables$lunch)
+
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[1])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma7 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", calidad_almuerzo[1]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma7, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
+
+## column {data-width=500}
+### Para Free/Reduced
+
+```{r histogramasb2, echo=FALSE}
+
+datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[2])
+
+x_range <- seq(min(datos_nivel$Desempeño), max(datos_nivel$Desempeño), length.out = 100)
+normal_curve <- data.frame(x = x_range, y = dnorm(x_range, mean(datos_nivel$Desempeño), sd(datos_nivel$Desempeño)))
+densidad_curve <- data.frame(x = density(datos_nivel$Desempeño)$x, y = density(datos_nivel$Desempeño)$y)
+
+histograma8 <- ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black", alpha = 0.7) +
+  geom_line(data = normal_curve, aes(x = x, y = y), color = "blue", linetype = "dashed", size = 0.8) +
+  geom_line(data = densidad_curve, aes(x = x, y = y), color = "red", size = 0.8) +  # Nueva curva
+  labs(title = paste("Histograma para", calidad_almuerzo[2]),
+       x = "Desempeño",
+       y = "Densidad") +
+  theme_minimal()
+
+# Interactividad 
+ggplotly(histograma8, tooltip = c("x", "y")) %>% 
+  layout(hoverlabel = list(bgcolor = "white")) %>% 
+  config(displayModeBar = TRUE)
+```
 
 # 3 variables en conjunto
 

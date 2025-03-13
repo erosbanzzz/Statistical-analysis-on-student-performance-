@@ -1,5 +1,5 @@
 ---
-title: "Análisis de las variables nivel educativo de los padres y almuerzo de los estudiantes en su rendimiento escolar"
+title: "ANALISIS DEL NIVEL EDICATIVO DE LOS PADRES Y EL TIPO DE ALIMENTACION DE LOS ESTUDIANES COMO POSIBLES INDICADORES DEL RENDIMIENTO ACADEMICO DE LOS MISMOS MEDIANTE METODOS ESTADISTICOS"
 author: "David Mazza, Eros Bande, Sofia Rodriguez "
 date: "`r Sys.Date()`"
 output: 
@@ -695,28 +695,19 @@ print(histograma8)
 
 ```{r grafico3, echo=FALSE}
 # Grafico de cajas
-ggplot(variables, aes(
-    x = `parental level of education`, 
-    y = Desempeño, 
-    fill = lunch  # Usar "fill" para separar por "lunch"
-  )) + 
-  geom_boxplot(
-    position = position_dodge(width = 0.8),  # Dodge para separar cajas
-    alpha = 0.7) + stat_summary(
-    fun = "mean", 
-    geom = "point", 
-    position = position_dodge(width = 0.8),  
-    size = 2, 
-    color = "black"
-  ) + labs(
-    title = "Desempeño en función del Nivel Educativo de los Padres y Tipo de Almuerzo", 
+ggplot(variables, aes(x = `parental level of education`, y = Desempeño, fill = `parental level of education`, colour = lunch)) + 
+  geom_boxplot() + 
+  stat_summary(fun = "mean", geom = "point", position = position_dodge(width = 0.75)) + labs(
+    title = "Desempeño en función del Nivel Educativo de los Padres", 
     x = "Nivel Educativo de los Padres", 
     y = "Desempeño",
-    fill = "") + theme_light() + theme(
+    fill = "",  
+    colour = "") + theme(
     text = element_text(family = "serif"),
-    plot.title = element_text(hjust = 0.5, size = 12),
-    axis.text.x = element_text(angle = 45, hjust = 1),  
-    legend.position = "bottom") + scale_fill_manual(values = c("standard" = "#00BFC4", "free/reduced" = "#F8766D"))           
+    plot.title = element_text(hjust = 0.5),
+    axis.text.x = element_blank(),
+    legend.position = "bottom",
+    legend.title = element_text(hjust = 0.5)) + scale_colour_manual(values = c("standard" = "blue", "free/reduced" = "red"))           
 ```
 
 Finalmente, llegamos a la parte más importante del trabajo, el grafico que relaciona las 3 variables analizadas. Es una combinación de dos gráficos ya mencionados. 
@@ -727,7 +718,7 @@ En este grafico podemos ver claramente que los estudiantes con un almuerzo está
 
 En resumen, la información presentada es la misma que la de los gráficos anteriores pero de manera conjunta, lo cual representa de manera breve y concisa el análisis realizado en este trabajo.
 
-# Conclusión
+#Conclusión
 
 A lo largo de este trabajo, se ha analizado la relación entre el nivel educativo de los padres y la calidad del almuerzo de los estudiantes con su desempeño académico, utilizando datos de un grupo representativo de estudiantes estadounidenses. Los resultados obtenidos respaldan la hipótesis inicial de que ambas variables tienen un impacto significativo en el rendimiento académico de los estudiantes.
 Los análisis realizados muestran una clara relación entre el nivel educativo de los padres y el desempeño académico de los estudiantes. En general, los estudiantes cuyos padres tienen un nivel educativo más alto tienden a obtener calificaciones más altas en comparación con aquellos cuyos padres tienen un nivel educativo más bajo. Esto se evidencia en los cuartiles, donde los estudiantes con padres más educados presentan valores más altos, lo que indica un mejor desempeño en todos los niveles de distribución. Además, el coeficiente de variación es más bajo en los grupos con padres con un mayor nivel de estudio, lo que sugiere que el desempeño es más consistente y menos disperso en estos grupos.

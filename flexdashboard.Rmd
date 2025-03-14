@@ -238,7 +238,9 @@ tabla_frecuencias_relativas_condicionales2_df <- mutate(tabla_frecuencias_relati
 ```
 
 ### Tabla 1: Por Nivel Educativo
+
 ## column {data-width="500"}
+
 ```{r, echo=FALSE}
 # Tabla para nivel educativo
 datatable(
@@ -255,7 +257,9 @@ datatable(
 ```
 
 ### Tabla 2: Por Calidad de Almuerzo
+
 ## column {data-width="500"}
+
 ```{r, echo=FALSE}
 # Tabla para tipo de almuerzo
 datatable(
@@ -264,25 +268,6 @@ datatable(
   options = list(
     pageLength = 6,
     dom = 't',
-    autoWidth = TRUE
-  )
-) %>% 
-  formatStyle(names(tabla_frecuencias_relativas_condicionales2_df),
-              backgroundColor = 'white')
-```
-
-
-```{r, echo=FALSE}
-
-
-
-# Tabla de frecuencias relativas condicionales para almuerzo
-datatable(
-  tabla_frecuencias_relativas_condicionales2_df,
-  caption = "Frecuencias Relativas Condicionales Por Calidad de Almuerzo",
-  options = list(
-    pageLength = 6,
-    dom = 't', 
     autoWidth = TRUE
   )
 ) %>% 

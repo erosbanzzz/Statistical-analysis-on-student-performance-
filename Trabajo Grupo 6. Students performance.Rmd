@@ -81,7 +81,8 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ## VARIABLES
 
-*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
+*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta.
+* Desempeño: La variable desempeño se calculó mediante el promedio de las calificaciones de los 3 examenes (Writting score, reading score, math score). Este valor refleja la capacidad academica de los estudiantes de manera sencilla.
 *	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
     *	Alguna educación secundaria (some high school): Indica que los padres no completaron la educación secundaria.
   

@@ -716,6 +716,129 @@ print(histograma8)
 
 # Comparación de las Tres Variables en Conjunto
 
+```{r calculos basicos3, echo=FALSE}
+# Cálculos básicos condicionados a ambas variables
+tabla_completa <- variables %>%
+  group_by(`parental level of education`, lunch) %>% # Agrupar por ambas variables
+  summarise(
+    Promedio = round(mean(Desempeño), 2),
+    D.Estandar = round(sd(Desempeño), 2),
+    CV = round(((D.Estandar / Promedio) * 100), 2),
+    Asimetria = round(skewness(Desempeño, type = 1), 2),
+    Kurtosis = round(kurtosis(Desempeño, type = 1), 2))
+
+# Formatear la tabla con kableExtra
+
+kable(tabla_completa, caption = "Estadísticos de Desempeño por Nivel Educativo y Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+Para esta tabla de manera resumida se pueden sacar las siguientes conclucones:
+
+1. Impacto del nivel educativo de los padres
+
+A mayor nivel educativo, mejor desempeño. Los estudiantes cuyos padres tienen niveles educativos más altos (e.g., "master's degree", "bachelor's degree") obtienen promedios significativamente superiores en comparación con aquellos cuyos padres tienen niveles educativos más bajos (e.g., "some high school", "high school").
+
+Ejemplo:
+
+*  Padres con "master's degree":
+  
+  *  Almuerzo estándar: 78.05 puntos.
+    
+  *  Almuerzo reducido: 67.11 puntos.
+  
+*  Padres con "some high school":
+  
+  *  Almuerzo estándar: 69.18 puntos.
+    
+  *  Almuerzo reducido: 57.22 puntos.
+
+2. Efecto dela calidad de almuerzo
+
+Almuerzo estándar en comparación a almuerzo reducido. En todos los niveles educativos parentales, los estudiantes con almuerzo estándar obtienen promedios significativamente superiores en comparación con los estudiantes que consumen el almuerzo reducido. La diferencia del promedio va desde 8 hasta los 12 puntos, lo que subraya la importancia de una alimentación adecuada.
+
+Ejemplo:
+
+*  Padres con "associate's degree":
+  
+  *  Estándar: 71.77 puntos vs. Reducido: 65.43 puntos (diferencia de 6.34 puntos).
+  
+*  Padres con "bachelor's degree":
+  
+  *  Estándar: 74.82 puntos vs. Reducido: 67.05 puntos (diferencia de 7.77 puntos).
+
+4. Distribución de las calificaciones (Asimetría y Curtosis):
+
+Sesgo negativo en grupos vulnerables. En niveles educativos parentales bajos, la asimetría negativa (-0.61 a -0.16) indica una mayor concentración de estudiantes con calificaciones por debajo del promedio.
+
+Ejemplo:
+
+* Padres con  "some high school":
+  
+  * Almuerzo estándar:  -0.45
+  
+  * Almuerzo reducido:  -0.44
+ 
+ 
+Distribuciones platicúrticas en niveles altos. La curtosis negativa en grupos con padres de mayor educación refleja distribuciones más planas, con menor concentración de notas extremas.
+
+* Padres con  "bachelor’s degreel":
+  
+  * Almuerzo estándar:  -0.28
+ 
+  * Almuerzo reducido:  -0.46
+
+
+5. Interacción entre variables. El almuerzo estándar disminuye las desigualdades:
+
+Aunque el nivel educativo parental es determinante, el acceso a un almuerzo estándar reduce la brecha de desempeño. 
+
+Por ejemplo:
+
+Estudiantes con padres de "some high school" pero con almuerzo estándar (69.18 puntos) superan a aquellos con padres de "associate's degree" pero almuerzo reducido (65.43 puntos).
+
+```{r cuartiles3, echo=FALSE}
+
+cuartiles3 <- variables %>%
+  group_by(`parental level of education`, lunch) %>%
+  summarise(
+    Q1 = round(quantile(Desempeño, 0.25), 2),
+    Q2 = round(quantile(Desempeño, 0.50), 2), 
+    Q3 = round(quantile(Desempeño, 0.75), 2))
+
+# Mostrar 
+kable(cuartiles3, caption = "Cuartiles de Desempeño por Nivel Educativo y Tipo de Almuerzo", format = "latex", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+1. Impacto del nivel educativo de los padres
+
+Mayor nivel educativo, mejor desempeño. Los estudiantes con padres de mayor nivel educativo (e.g., "master’s degree", "bachelor’s degree") muestran cuartiles significativamente más altos en comparación con aquellos cuyos padres tienen niveles educativos más bajos (e.g., "some high school").
+
+Ejemplo:
+
+Padres con "master’s degree" (almuerzo estándar):
+
+Q1 = 68.66, Q2 = 79.33, Q3 = 86.50.
+
+Padres con "some high school" (almuerzo estándar):
+
+Q1 = 60.08, Q2 = 69.84, Q3 = 78.92.
+
+2. Efecto del tipo de almuerzo
+
+Almuerzo estándar en comparación al reducido. En todos los niveles educativos, los estudiantes con almuerzo "standard" tienen cuartiles más altos que aquellos con almuerzo "free/reduced". La brecha es especialmente notable en los niveles educativos más bajos.
+
+Ejemplo:
+
+Padres con "high school" (free/reduced):
+
+Q1 = 47.17, Q3 = 68.58.
+
+Padres con "high school" (standard):
+
+Q1 = 57.58, Q3 = 74.17.
+
 ```{r grafico3, echo=FALSE}
 # Grafico de cajas
 ggplot(variables, aes(

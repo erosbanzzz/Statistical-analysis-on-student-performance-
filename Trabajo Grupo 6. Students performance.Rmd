@@ -225,7 +225,7 @@ kable(Cantidad_parental_level,
       caption = "Distribución de la variable parental level of education")
 
 ```
-En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6) con high school, 59 con master’s degree (5,9), 226 (22,6) some college y finalmente, 179 (17,9) some high school. 
+En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6%) con high school, 59 con master’s degree (5,9%), 226 (22,6%) some college y finalmente, 179 (17,9%) some high school. 
 
 ```{r, echo = FALSE}
 #Distribución de las variables cualitativas

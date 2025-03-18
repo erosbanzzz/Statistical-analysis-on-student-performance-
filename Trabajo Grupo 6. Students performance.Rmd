@@ -67,7 +67,7 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ### Objetivo general:
 
-* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+* Analizar el nivel educativo de los padres y el tipo de alimentación de los estudiantes como posibles indicadores del rendimiento academico de los mismos mediante metodos estadisticos.
 
 ### Objetivos específicos:
 

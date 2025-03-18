@@ -8,7 +8,7 @@ Esta investigación tiene como principal enfoque analizar como el nivel educativ
 # Objetivos
 ### Objetivo general:
 
-* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+* ANALIZAR EL NIVEL EDICATIVO DE LOS PADRES Y EL TIPO DE ALIMENTACION DE LOS ESTUDIANES COMO POSIBLES INDICADORES DEL RENDIMIENTO ACADEMICO DE LOS MISMOS MEDIANTE METODOS ESTADISTICOS.
 
 ### Objetivos específicos:
 

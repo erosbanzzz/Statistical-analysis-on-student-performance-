@@ -1,6 +1,6 @@
 ---
-title: "ANALISIS DEL NIVEL EDICATIVO DE LOS PADRES Y EL TIPO DE ALIMENTACION DE LOS ESTUDIANES COMO POSIBLES INDICADORES DEL RENDIMIENTO ACADEMICO DE LOS MISMOS MEDIANTE METODOS ESTADISTICOS"
-author: "David Mazza, Eros Bande, Sofia Rodriguez "
+title: "Análisis Del Nivel Educativo De Los Padres Y El Tipo De Alimentación De Los Estudiantes Como Posibles Indicadores Del Rendimiento Académico De Los Mismos"
+author: "David Mazza, Eros Bande, Sofia Rodriguez"
 date: "`r Sys.Date()`"
 output: 
   pdf_document:
@@ -782,7 +782,7 @@ Ejemplo:
  
 Distribuciones platicúrticas en niveles altos. La curtosis negativa en grupos con padres de mayor educación refleja distribuciones más planas, con menor concentración de notas extremas.
 
-* Padres con  "bachelor’s degreel":
+* Padres con  "bachelor’s degree":
   
   * Almuerzo estándar:  -0.28
  

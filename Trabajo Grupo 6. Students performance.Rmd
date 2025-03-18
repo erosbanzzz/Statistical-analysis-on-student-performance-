@@ -67,7 +67,7 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ### Objetivo general:
 
-* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+* Analizar el nivel educativo de los padres y el tipo de alimentación de los estudiantes como posibles indicadores del rendimiento academico de los mismos mediante metodos estadisticos.
 
 ### Objetivos específicos:
 
@@ -81,7 +81,8 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ## VARIABLES
 
-*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
+*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta.
+* Desempeño: La variable desempeño se calculó mediante el promedio de las calificaciones de los 3 examenes (Writting score, reading score, math score). Este valor refleja la capacidad academica de los estudiantes de manera sencilla.
 *	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
     *	Alguna educación secundaria (some high school): Indica que los padres no completaron la educación secundaria.
   
@@ -206,9 +207,6 @@ ggplot(Kurtosis_data_frame, aes(x = value)) +
   ggtitle(paste("Histograma sobre la simetria y kurtosis")) + theme_minimal() +
   theme(text = element_text(family = "serif"))
 
-kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
-  kable_styling(latex_options = c("striped", "hold_position"))
-
 ```
 
 Estas son las distribuciones de las variables cualitativas, en cantidad total, proporcion y graficos que faciliten su comprensión
@@ -262,9 +260,6 @@ ggplot(Cantidad_parental_level, aes(x = `parental level of education`, y = Canti
     text = element_text(family = "serif"),
     legend.position = "bottom"
     )
-
-kable(cuartiles2, caption = "Cuartiles del Desempeño Calidad de Almuerzo", format = "latex", booktabs = TRUE) %>%
-  kable_styling(latex_options = c("striped", "hold_position"))
 
 # Gráficos de las proporciones de las variables cualitativas
 
@@ -338,7 +333,7 @@ variables$Desempeño_Intervalos <- cut(variables$Desempeño,
                                breaks = c(9, 32, 55, 78, 100), 
                                right = FALSE,
                                include.lowest = TRUE,
-                               labels = c("[9,32]", "[32,55]", "[55,78]", "[78,100]"))
+                               labels = c("[9,32)", "[32,55)", "[55,78)", "[78,100]"))
 
 ```
 
@@ -445,16 +440,21 @@ niveles_educativos <- unique(variables$`parental level of education`)
 # Filtrar los datos para el primer nivel educativo
 datos_nivel <- variables %>% filter(`parental level of education` == niveles_educativos[1])
 
-# Crear el histograma
+# Crear el histograma (mismo código original + 2 líneas nuevas)
 histograma1 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  # Nueva función 1: Curva normal teórica
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[1]),
        x = "Desempeño",
        y = "Densidad") +
   theme_minimal()
 
-# Mostrar el histograma
 print(histograma1)
 ```
 
@@ -465,6 +465,12 @@ datos_nivel <- variables %>% filter(`parental level of education` == niveles_edu
 histograma2 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  # Nueva función 1: Curva normal teórica
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[2]),
        x = "Desempeño",
        y = "Densidad") +
@@ -480,6 +486,12 @@ datos_nivel <- variables %>% filter(`parental level of education` == niveles_edu
 histograma3 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  # Nueva función 1: Curva normal teórica
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[3]),
        x = "Desempeño",
        y = "Densidad") +
@@ -495,6 +507,12 @@ datos_nivel <- variables %>% filter(`parental level of education` == niveles_edu
 histograma4 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  # Nueva función 1: Curva normal teórica
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[4]),
        x = "Desempeño",
        y = "Densidad") +
@@ -510,6 +528,12 @@ datos_nivel <- variables %>% filter(`parental level of education` == niveles_edu
 histograma5 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  # Nueva función 1: Curva normal teórica
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[5]),
        x = "Desempeño",
        y = "Densidad") +
@@ -525,6 +549,11 @@ datos_nivel <- variables %>% filter(`parental level of education` == niveles_edu
 histograma6 <- ggplot(datos_nivel, aes(x = Desempeño)) +
   geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", niveles_educativos[6]),
        x = "Desempeño",
        y = "Densidad") +
@@ -623,9 +652,14 @@ calidad_almuerzo <- unique(variables$lunch)
 datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[1])
 
 # Crear el histograma
-histograma7 <- ggplot(datos_nivel, aes(x = Desempeño)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+histograma7 <-ggplot(datos_nivel, aes(x = Desempeño)) +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[1]),
        x = "Desempeño",
        y = "Densidad") +
@@ -642,8 +676,13 @@ datos_nivel <- variables %>% filter(lunch == calidad_almuerzo[2])
 
 # Crear el histograma
 histograma8 <- ggplot(datos_nivel, aes(x = Desempeño)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 10, fill = "lightblue", color = "black") +
+  geom_histogram(aes(y = ..density..), binwidth = 10, fill = "lightblue", color = "black") +
   geom_density(color = "red", size = 1) +
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(datos_nivel$Desempeño), sd = sd(datos_nivel$Desempeño)),
+    color = "blue", linetype = "dashed", size = 0.8
+  ) + 
   labs(title = paste("Histograma de Desempeño para", calidad_almuerzo[2]),
        x = "Desempeño",
        y = "Densidad") +

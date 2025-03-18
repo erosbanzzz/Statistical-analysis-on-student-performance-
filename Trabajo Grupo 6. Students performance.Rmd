@@ -300,7 +300,7 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
-    title = "Distribucion de la variable lunch",
+    title = "Proporcion de la variable lunch",
     x = "lunch",
     y = "Proporcion (%)",
     fill = ""

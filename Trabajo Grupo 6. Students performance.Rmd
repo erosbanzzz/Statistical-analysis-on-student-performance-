@@ -31,6 +31,28 @@ variables <-select(SP, "parental level of education", "lunch", "math score", "re
 variables <- variables %>%
   mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
 
+#Ordenar a lavariable cualitativa parental level of education
+variables$`parental level of education` <- factor(
+  variables$`parental level of education`,
+  levels = c(
+    "some high school",
+    "high school",
+    "some college",
+    "associate's degree",
+    "bachelor's degree",
+    "master's degree"
+  ),
+  ordered = TRUE
+)
+#Ordenar a lavariable cualitativa lunch
+variables$`lunch` <- factor(
+  variables$`lunch`,
+  levels = c(
+    "free/reduced",
+    "standard"
+  ),
+  ordered = TRUE
+)
 
 #Seleccion de las notas academicas
 
@@ -712,7 +734,7 @@ ggplot(variables, aes(
     title = "Desempeño en función del Nivel Educativo de los Padres y Tipo de Almuerzo", 
     x = "Nivel Educativo de los Padres", 
     y = "Desempeño",
-    fill = "Tipo de Almuerzo") + theme_light() + theme(
+    fill = "") + theme_light() + theme(
     text = element_text(family = "serif"),
     plot.title = element_text(hjust = 0.5, size = 12),
     axis.text.x = element_text(angle = 45, hjust = 1),  

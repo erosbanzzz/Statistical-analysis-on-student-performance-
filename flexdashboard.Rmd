@@ -34,6 +34,29 @@ variables <-select(SP, "parental level of education", "lunch", "math score", "re
 variables <- variables %>%
   mutate(Desempeño = round((`math score` + `reading score` + `writing score`) / 3,2 ))
 
+#Ordenar a lavariable cualitativa parental level of education
+variables$`parental level of education` <- factor(
+  variables$`parental level of education`,
+  levels = c(
+    "some high school",
+    "high school",
+    "some college",
+    "associate's degree",
+    "bachelor's degree",
+    "master's degree"
+  ),
+  ordered = TRUE
+)
+#Ordenar a lavariable cualitativa lunch
+variables$`lunch` <- factor(
+  variables$`lunch`,
+  levels = c(
+    "free/reduced",
+    "standard"
+  ),
+  ordered = TRUE
+)
+
 notas <- select(SP, "math score", "reading score", "writing score")
 
 notas <- notas %>%

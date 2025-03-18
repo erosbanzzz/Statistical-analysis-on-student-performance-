@@ -89,7 +89,7 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ### Objetivo general:
 
-* Analizar la relación entre el nivel educativo de los padres y la alimentación de los estudiantes con su desempeño académico en exámenes de habilidad verbal, matemática e inglés.
+* Analizar el nivel educativo de los padres y el tipo de alimentación de los estudiantes como posibles indicadores del rendimiento academico de los mismos mediante metodos estadisticos.
 
 ### Objetivos específicos:
 
@@ -103,7 +103,8 @@ Un país con una educación sólida es sinónimo de progreso y desarrollo. Para 
 
 ## VARIABLES
 
-*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta
+*	Nota en exámenes: Este es el principal indicador de desempeño académico y se expresa en los resultados de 3 distintas pruebas, matemáticas, lectura y escritura. Es una variable cuantitativa discreta.
+* Desempeño: La variable desempeño se calculó mediante el promedio de las calificaciones de los 3 examenes (Writting score, reading score, math score). Este valor refleja la capacidad academica de los estudiantes de manera sencilla.
 *	Nivel educativo de los padres: Es el nivel más alto de educación alcanzado por los responsables de los estudiantes. Este tendrá distintas categorías, como educación primaria, secundaria, superior, entre otros. Es una variable cualitativa ordinal. Esta variable consta de las categorías:
     *	Alguna educación secundaria (some high school): Indica que los padres no completaron la educación secundaria.
   
@@ -246,7 +247,7 @@ kable(Cantidad_parental_level,
       caption = "Distribución de la variable parental level of education")
 
 ```
-En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6) con high school, 59 con master’s degree (5,9), 226 (22,6) some college y finalmente, 179 (17,9) some high school. 
+En la tabla 2 se puede apreciar la distribución de la variable parental level of education (Nivel de educación de los padres). Hay 222 (22,2%) padres con un nivel educativo con un associate’s degree, 118 (11,8%) padres con un bachelor’s degree, 196 (19,6%) con high school, 59 con master’s degree (5,9%), 226 (22,6%) some college y finalmente, 179 (17,9%) some high school. 
 
 ```{r, echo = FALSE}
 #Distribución de las variables cualitativas
@@ -321,7 +322,7 @@ ggplot(Cantidad_lunch, aes(x = `lunch`, y = Cantidad2, fill = `lunch`)) +
 ggplot(Cantidad_lunch, aes(x = `lunch`, y = Proporcion2, fill = `lunch`)) +
   geom_col() +
   labs(
-    title = "Distribucion de la variable lunch",
+    title = "Proporcion de la variable lunch",
     x = "lunch",
     y = "Proporcion (%)",
     fill = ""

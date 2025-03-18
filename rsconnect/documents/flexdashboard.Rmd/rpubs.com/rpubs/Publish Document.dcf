@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1285481/641470662a7f469bad171d8132a08719
+bundleId: https://api.rpubs.com/api/v1/document/1285481/641470662a7f469bad171d8132a08719
+url: http://rpubs.com/DavidM02/1285481/edit
+version: 1
